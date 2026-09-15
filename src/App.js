@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate
-} from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import LoginScreen from "./components/LoginScreen";
 import Dashboard from "./components/Dashboard";
