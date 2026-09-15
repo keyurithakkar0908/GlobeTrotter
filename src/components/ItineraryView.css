@@ -1,0 +1,559 @@
+* {
+  box-sizing: border-box;
+}
+
+.itinerary-page {
+  min-height: 100vh;
+  background: #f5f8fc;
+  color: #172033;
+  font-family: Arial, sans-serif;
+}
+
+/* NAVBAR */
+
+.itinerary-navbar {
+  height: 72px;
+  background: white;
+  border-bottom: 1px solid #e5eaf1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.itinerary-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.itinerary-logo > span {
+  font-size: 34px;
+}
+
+.itinerary-logo strong {
+  display: block;
+  color: #1769e0;
+  font-size: 20px;
+}
+
+.itinerary-logo small {
+  color: #8a94a6;
+  font-size: 11px;
+}
+
+.itinerary-nav-links {
+  display: flex;
+  gap: 8px;
+}
+
+.itinerary-nav-links button {
+  border: none;
+  background: transparent;
+  padding: 10px 16px;
+  color: #647084;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.itinerary-nav-links button:hover,
+.itinerary-nav-links .active {
+  background: #edf5ff;
+  color: #1769e0;
+}
+
+.itinerary-profile {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.profile-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #1769e0;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CONTAINER */
+
+.itinerary-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 35px 0 70px;
+}
+
+/* HEADER */
+
+.itinerary-header {
+  background: white;
+  padding: 30px;
+  border-radius: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #e7ecf3;
+}
+
+.trip-label {
+  font-size: 12px;
+  color: #1769e0;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.itinerary-header h1 {
+  margin: 7px 0;
+  font-size: 31px;
+}
+
+.itinerary-header p {
+  color: #737e90;
+  margin: 0;
+}
+
+.itinerary-header-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.share-button,
+.edit-button {
+  border: none;
+  padding: 12px 18px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.share-button {
+  background: #edf5ff;
+  color: #1769e0;
+}
+
+.edit-button {
+  background: #1769e0;
+  color: white;
+}
+
+/* SUMMARY */
+
+.itinerary-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin: 25px 0;
+}
+
+.summary-card {
+  background: white;
+  border: 1px solid #e7ecf3;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.summary-icon {
+  width: 45px;
+  height: 45px;
+  background: #edf5ff;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 21px;
+}
+
+.summary-card span {
+  display: block;
+  color: #8993a4;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.summary-card strong {
+  font-size: 19px;
+}
+
+/* DAY SELECTOR */
+
+.day-selector-section,
+.timeline-section {
+  background: white;
+  border: 1px solid #e7ecf3;
+  border-radius: 18px;
+  padding: 25px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.section-heading span {
+  color: #8a94a6;
+  font-size: 13px;
+}
+
+.day-selector {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.day-selector button {
+  border: 1px solid #dfe5ed;
+  background: white;
+  padding: 13px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.day-selector button span {
+  display: block;
+  font-weight: bold;
+  color: #596578;
+}
+
+.day-selector button small {
+  color: #929bab;
+  font-size: 10px;
+  margin-top: 4px;
+  display: block;
+}
+
+.day-selector button.selected {
+  background: #1769e0;
+  border-color: #1769e0;
+  color: white;
+}
+
+.day-selector button.selected span,
+.day-selector button.selected small {
+  color: white;
+}
+
+/* TIMELINE */
+
+.timeline-section {
+  margin-top: 25px;
+}
+
+.timeline-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #edf0f4;
+  padding-bottom: 20px;
+}
+
+.timeline-title span {
+  color: #1769e0;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.timeline-title h2 {
+  margin: 4px 0 0;
+  font-size: 24px;
+}
+
+.timeline-date {
+  color: #7e8898;
+  font-size: 14px;
+}
+
+.timeline {
+  margin-top: 25px;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 90px 45px 1fr;
+  min-height: 100px;
+}
+
+.timeline-time {
+  text-align: right;
+  padding-top: 13px;
+  padding-right: 15px;
+  color: #727d90;
+  font-size: 13px;
+}
+
+.timeline-line {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.timeline-line::after {
+  content: "";
+  position: absolute;
+  top: 43px;
+  bottom: 0;
+  width: 2px;
+  background: #e2e8f0;
+}
+
+.timeline-item:last-child .timeline-line::after {
+  display: none;
+}
+
+.timeline-dot {
+  width: 39px;
+  height: 39px;
+  border-radius: 50%;
+  background: #edf5ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.activity-card {
+  margin-left: 15px;
+  margin-bottom: 18px;
+  padding: 17px 18px;
+  border: 1px solid #e7ecf3;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  background: #fbfcfe;
+}
+
+.activity-card h3 {
+  margin: 0 0 9px;
+  font-size: 16px;
+}
+
+.activity-info {
+  display: flex;
+  gap: 15px;
+  font-size: 12px;
+  color: #788396;
+}
+
+.activity-more {
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+  color: #8892a3;
+}
+
+/* TIP */
+
+.planning-tip {
+  margin-top: 25px;
+  background: #eef7ff;
+  border: 1px solid #d8eaff;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.tip-icon {
+  font-size: 25px;
+}
+
+.planning-tip h3 {
+  margin: 0 0 5px;
+  color: #1769e0;
+}
+
+.planning-tip p {
+  margin: 0;
+  color: #647084;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ACTIONS */
+
+.itinerary-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.itinerary-actions button {
+  background: white;
+  border: 1px solid #dfe5ed;
+  padding: 12px 20px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #445066;
+}
+
+.itinerary-actions button:hover {
+  border-color: #1769e0;
+  color: #1769e0;
+}
+
+/* MOBILE NAV */
+
+.mobile-itinerary-nav {
+  display: none;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .itinerary-nav-links {
+    display: none;
+  }
+
+  .itinerary-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .day-selector {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .itinerary-navbar {
+    padding: 0 20px;
+  }
+
+  .itinerary-profile span {
+    display: none;
+  }
+
+  .itinerary-container {
+    width: 94%;
+    padding-bottom: 85px;
+  }
+
+  .itinerary-header {
+    padding: 22px;
+    display: block;
+  }
+
+  .itinerary-header h1 {
+    font-size: 25px;
+  }
+
+  .itinerary-header-buttons {
+    margin-top: 20px;
+    flex-direction: column;
+  }
+
+  .itinerary-summary {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .summary-card {
+    padding: 14px;
+  }
+
+  .summary-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 17px;
+  }
+
+  .summary-card strong {
+    font-size: 16px;
+  }
+
+  .day-selector {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .timeline-section,
+  .day-selector-section {
+    padding: 18px;
+  }
+
+  .timeline-item {
+    grid-template-columns: 65px 38px 1fr;
+  }
+
+  .timeline-time {
+    font-size: 11px;
+    padding-right: 7px;
+  }
+
+  .timeline-dot {
+    width: 34px;
+    height: 34px;
+  }
+
+  .activity-card {
+    margin-left: 8px;
+    padding: 13px;
+  }
+
+  .activity-card h3 {
+    font-size: 14px;
+  }
+
+  .activity-info {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .itinerary-actions {
+    flex-direction: column;
+  }
+
+  .mobile-itinerary-nav {
+    position: fixed;
+    display: flex;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 65px;
+    background: white;
+    border-top: 1px solid #e5eaf1;
+    justify-content: space-around;
+    z-index: 200;
+  }
+
+  .mobile-itinerary-nav button {
+    border: none;
+    background: transparent;
+    color: #7a8596;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 18px;
+  }
+
+  .mobile-itinerary-nav button span {
+    font-size: 10px;
+  }
+
+  .mobile-itinerary-nav .mobile-active {
+    color: #1769e0;
+  }
+}

@@ -1,0 +1,744 @@
+* {
+  box-sizing: border-box;
+}
+
+.share-trip-page {
+  min-height: 100vh;
+  background: #f5f8fc;
+  color: #172033;
+  font-family: Arial, sans-serif;
+}
+
+/* ================= NAVBAR ================= */
+
+.share-navbar {
+  height: 72px;
+  background: white;
+  border-bottom: 1px solid #e5eaf1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.share-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.share-logo > span {
+  font-size: 34px;
+}
+
+.share-logo strong {
+  display: block;
+  color: #1769e0;
+  font-size: 20px;
+}
+
+.share-logo small {
+  display: block;
+  color: #8a94a6;
+  font-size: 11px;
+}
+
+.share-nav-links {
+  display: flex;
+  gap: 7px;
+}
+
+.share-nav-links button {
+  border: none;
+  background: transparent;
+  padding: 10px 14px;
+  color: #647084;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.share-nav-links button:hover,
+.share-nav-links button.active {
+  background: #edf5ff;
+  color: #1769e0;
+}
+
+.share-profile {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.share-avatar {
+  width: 38px;
+  height: 38px;
+  background: #1769e0;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================= CONTAINER ================= */
+
+.share-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 35px 0 70px;
+}
+
+/* ================= HEADER ================= */
+
+.share-page-header {
+  background: white;
+  border: 1px solid #e7ecf3;
+  border-radius: 18px;
+  padding: 28px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.share-label {
+  color: #1769e0;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.share-page-header h1 {
+  margin: 7px 0;
+  font-size: 30px;
+}
+
+.share-page-header p {
+  margin: 0;
+  color: #7b8697;
+}
+
+.back-itinerary-btn {
+  background: #edf5ff;
+  color: #1769e0;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* ================= MAIN GRID ================= */
+
+.share-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 25px;
+}
+
+/* ================= LINK CARD ================= */
+
+.share-link-card,
+.public-preview-card,
+.shared-itinerary-card,
+.share-tip {
+  background: white;
+  border: 1px solid #e7ecf3;
+  border-radius: 18px;
+}
+
+.share-link-card {
+  padding: 28px;
+}
+
+.share-card-heading {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.share-big-icon {
+  width: 55px;
+  height: 55px;
+  background: #edf5ff;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+.share-card-heading h2 {
+  margin: 0 0 5px;
+  font-size: 21px;
+}
+
+.share-card-heading p {
+  margin: 0;
+  color: #818b9b;
+  font-size: 13px;
+}
+
+/* ================= LINK ================= */
+
+.link-section {
+  margin-top: 30px;
+}
+
+.link-section label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.link-box {
+  display: flex;
+  border: 1px solid #dce2ea;
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.link-box input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  padding: 13px;
+  color: #687386;
+  font-size: 12px;
+  background: #fafbfd;
+}
+
+.link-box button {
+  border: none;
+  background: #1769e0;
+  color: white;
+  padding: 0 17px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.link-box button.copied {
+  background: #198754;
+}
+
+/* ================= VISIBILITY ================= */
+
+.visibility-section {
+  margin-top: 25px;
+  background: #f7faff;
+  border: 1px solid #e2ebf7;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.visibility-icon {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visibility-text {
+  flex: 1;
+}
+
+.visibility-text strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
+.visibility-text span {
+  color: #7e899a;
+  font-size: 11px;
+}
+
+/* TOGGLE */
+
+.visibility-toggle {
+  width: 45px;
+  height: 24px;
+  border: none;
+  background: #cbd2dc;
+  border-radius: 20px;
+  padding: 3px;
+  cursor: pointer;
+  position: relative;
+}
+
+.visibility-toggle span {
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.25s;
+}
+
+.visibility-toggle.on {
+  background: #1769e0;
+}
+
+.visibility-toggle.on span {
+  transform: translateX(21px);
+}
+
+/* ================= SHARE OPTIONS ================= */
+
+.share-options {
+  margin-top: 28px;
+}
+
+.share-options h3 {
+  font-size: 14px;
+  margin: 0 0 15px;
+}
+
+.share-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.share-option {
+  background: white;
+  border: 1px solid #e1e6ed;
+  border-radius: 11px;
+  padding: 12px 5px;
+  cursor: pointer;
+}
+
+.share-option:hover {
+  border-color: #1769e0;
+  transform: translateY(-2px);
+}
+
+.share-option span {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.share-option small {
+  color: #697488;
+  font-size: 10px;
+}
+
+/* ================= PUBLIC PREVIEW ================= */
+
+.public-preview-card {
+  overflow: hidden;
+}
+
+.preview-header {
+  padding: 23px 25px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.preview-header span {
+  color: #1769e0;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.preview-header h2 {
+  margin: 5px 0 0;
+  font-size: 18px;
+}
+
+.preview-status {
+  color: #198754;
+  background: #edf9f2;
+  padding: 7px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* ================= COVER ================= */
+
+.preview-cover {
+  height: 190px;
+  margin: 0 20px;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.65),
+      rgba(0, 0, 0, 0.05)
+    ),
+    linear-gradient(
+      135deg,
+      #1677a8,
+      #63c7d8 45%,
+      #f5c878
+    );
+}
+
+.cover-overlay {
+  position: absolute;
+  left: 20px;
+  bottom: 18px;
+  color: white;
+}
+
+.cover-overlay span {
+  font-size: 11px;
+}
+
+.cover-overlay h2 {
+  margin: 5px 0;
+  font-size: 25px;
+}
+
+.cover-overlay p {
+  margin: 0;
+  font-size: 11px;
+}
+
+/* ================= PREVIEW DETAILS ================= */
+
+.preview-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 20px;
+}
+
+.preview-detail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preview-detail > span {
+  font-size: 19px;
+}
+
+.preview-detail small {
+  display: block;
+  color: #8b95a5;
+  font-size: 9px;
+}
+
+.preview-detail strong {
+  display: block;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+/* ================= PREVIEW SECTIONS ================= */
+
+.preview-section,
+.preview-description {
+  margin: 0 20px 20px;
+}
+
+.preview-section h3,
+.preview-description h3 {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+.city-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.city-tags span {
+  background: #edf5ff;
+  color: #1769e0;
+  border-radius: 20px;
+  padding: 7px 11px;
+  font-size: 11px;
+}
+
+.preview-description p {
+  color: #727d8e;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ================= SHARED ITINERARY ================= */
+
+.shared-itinerary-card {
+  margin-top: 25px;
+  padding: 27px;
+}
+
+.shared-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shared-heading > div span {
+  color: #1769e0;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.shared-heading h2 {
+  margin: 5px 0 0;
+  font-size: 20px;
+}
+
+.shared-heading button {
+  border: none;
+  background: #edf5ff;
+  color: #1769e0;
+  padding: 11px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* ================= FEATURES ================= */
+
+.shared-features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.shared-feature {
+  border: 1px solid #e7ecf3;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.shared-feature > div {
+  width: 38px;
+  height: 38px;
+  background: #edf5ff;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.shared-feature strong {
+  font-size: 13px;
+}
+
+.shared-feature p {
+  margin: 5px 0 0;
+  color: #7e8999;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* ================= TIP ================= */
+
+.share-tip {
+  margin-top: 25px;
+  padding: 20px;
+  background: #eef7ff;
+  border-color: #d8eaff;
+  display: flex;
+  gap: 14px;
+}
+
+.share-tip-icon {
+  font-size: 23px;
+}
+
+.share-tip h3 {
+  margin: 0 0 5px;
+  color: #1769e0;
+  font-size: 15px;
+}
+
+.share-tip p {
+  margin: 0;
+  color: #667286;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ================= BOTTOM ACTIONS ================= */
+
+.share-bottom-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.share-bottom-actions button {
+  background: white;
+  border: 1px solid #dfe5ed;
+  padding: 12px 19px;
+  border-radius: 9px;
+  cursor: pointer;
+  color: #4c586c;
+  font-weight: 600;
+}
+
+.share-bottom-actions button:hover {
+  color: #1769e0;
+  border-color: #1769e0;
+}
+
+/* ================= MOBILE NAV ================= */
+
+.mobile-share-nav {
+  display: none;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 950px) {
+
+  .share-nav-links {
+    display: none;
+  }
+
+  .share-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shared-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+
+  .share-navbar {
+    padding: 0 20px;
+  }
+
+  .share-profile span {
+    display: none;
+  }
+
+  .share-container {
+    width: 94%;
+    padding-bottom: 85px;
+  }
+
+  .share-page-header {
+    display: block;
+    padding: 22px;
+  }
+
+  .share-page-header h1 {
+    font-size: 25px;
+  }
+
+  .back-itinerary-btn {
+    width: 100%;
+    margin-top: 18px;
+  }
+
+  .share-link-card {
+    padding: 20px;
+  }
+
+  .link-box {
+    display: block;
+  }
+
+  .link-box input {
+    width: 100%;
+    height: 43px;
+  }
+
+  .link-box button {
+    width: 100%;
+    height: 43px;
+  }
+
+  .share-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .preview-details {
+    grid-template-columns: 1fr;
+  }
+
+  .shared-itinerary-card {
+    padding: 20px;
+  }
+
+  .shared-heading {
+    display: block;
+  }
+
+  .shared-heading button {
+    margin-top: 15px;
+    width: 100%;
+  }
+
+  .shared-features {
+    grid-template-columns: 1fr;
+  }
+
+  .share-bottom-actions {
+    flex-direction: column;
+  }
+
+  .share-bottom-actions button {
+    width: 100%;
+  }
+
+  .mobile-share-nav {
+    position: fixed;
+    display: flex;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 65px;
+    background: white;
+    border-top: 1px solid #e5eaf1;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 200;
+  }
+
+  .mobile-share-nav button {
+    border: none;
+    background: transparent;
+    color: #7a8596;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 18px;
+  }
+
+  .mobile-share-nav button span {
+    font-size: 10px;
+  }
+
+  .mobile-share-nav .mobile-share-active {
+    color: #1769e0;
+  }
+}

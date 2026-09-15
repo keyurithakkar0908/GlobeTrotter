@@ -1,0 +1,641 @@
+* {
+  box-sizing: border-box;
+}
+
+.explore-page {
+  min-height: 100vh;
+  background: #f5f8fc;
+  color: #172033;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ================= NAVBAR ================= */
+
+.explore-navbar {
+  height: 72px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5eaf1;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 5%;
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.explore-logo {
+  color: #1769e0;
+  font-size: 21px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.explore-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.explore-nav-links button {
+  border: none;
+  background: transparent;
+
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  color: #687386;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.explore-nav-links button:hover {
+  background: #edf4ff;
+  color: #1769e0;
+}
+
+.explore-nav-links button.active {
+  background: #edf4ff;
+  color: #1769e0;
+}
+
+.explore-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.profile-avatar {
+  width: 36px;
+  height: 36px;
+
+  border-radius: 50%;
+
+  background: #1769e0;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 700;
+}
+
+
+/* ================= MAIN CONTAINER ================= */
+
+.explore-container {
+  width: 90%;
+  max-width: 1350px;
+
+  margin: auto;
+
+  padding: 35px 0 60px;
+}
+
+
+/* ================= HEADER ================= */
+
+.explore-header {
+  margin-bottom: 28px;
+}
+
+.back-dashboard {
+  border: none;
+  background: transparent;
+
+  color: #1769e0;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  margin-bottom: 20px;
+}
+
+.explore-header h1 {
+  margin: 0;
+
+  font-size: 32px;
+  font-weight: 800;
+
+  color: #172033;
+}
+
+.explore-header p {
+  margin: 8px 0 0;
+
+  color: #7c8697;
+
+  font-size: 14px;
+}
+
+
+/* ================= SEARCH ================= */
+
+.explore-search-section {
+  margin-bottom: 22px;
+}
+
+.explore-search-box {
+  height: 56px;
+
+  background: white;
+
+  border: 1px solid #dfe6ef;
+
+  border-radius: 11px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 17px;
+
+  box-shadow: 0 3px 12px rgba(30, 50, 80, 0.04);
+}
+
+.search-symbol {
+  font-size: 18px;
+  margin-right: 12px;
+}
+
+.explore-search-box input {
+  flex: 1;
+
+  height: 100%;
+
+  border: none;
+  outline: none;
+
+  font-size: 14px;
+
+  color: #344054;
+}
+
+.explore-search-box input::placeholder {
+  color: #9aa3b1;
+}
+
+.clear-search {
+  border: none;
+  background: transparent;
+
+  color: #8992a2;
+
+  cursor: pointer;
+
+  font-size: 15px;
+}
+
+
+/* ================= FILTER ================= */
+
+.filter-section {
+  background: white;
+
+  border: 1px solid #e5eaf1;
+
+  border-radius: 12px;
+
+  padding: 17px 20px;
+
+  margin-bottom: 30px;
+}
+
+.filter-title {
+  color: #505b6d;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  margin-bottom: 12px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+
+  flex-wrap: wrap;
+}
+
+.filter-button {
+  border: 1px solid #dce3ed;
+
+  background: #ffffff;
+
+  color: #687386;
+
+  padding: 9px 17px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.filter-button:hover {
+  border-color: #1769e0;
+  color: #1769e0;
+}
+
+.filter-button.selected {
+  background: #1769e0;
+  color: white;
+
+  border-color: #1769e0;
+}
+
+
+/* ================= RESULT HEADING ================= */
+
+.destination-heading {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 18px;
+}
+
+.destination-heading h2 {
+  margin: 0;
+
+  font-size: 21px;
+}
+
+.destination-heading p {
+  margin: 5px 0 0;
+
+  color: #8992a2;
+
+  font-size: 13px;
+}
+
+.smart-button {
+  border: 1px solid #cfe0ff;
+
+  background: #edf4ff;
+
+  color: #1769e0;
+
+  padding: 11px 17px;
+
+  border-radius: 9px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.smart-button:hover {
+  background: #e1edff;
+}
+
+
+/* ================= CITY GRID ================= */
+
+.city-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 20px;
+}
+
+
+/* ================= CITY CARD ================= */
+
+.city-card {
+  background: white;
+
+  border: 1px solid #e4e9f0;
+
+  border-radius: 13px;
+
+  overflow: hidden;
+
+  transition: 0.25s;
+}
+
+.city-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow: 0 10px 25px rgba(25, 50, 80, 0.1);
+}
+
+
+/* ================= IMAGE ================= */
+
+.city-card-image {
+  height: 190px;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  position: relative;
+}
+
+.city-category {
+  position: absolute;
+
+  left: 12px;
+  bottom: 12px;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  color: white;
+
+  padding: 5px 10px;
+
+  border-radius: 15px;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.favorite-button {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  width: 36px;
+  height: 36px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: white;
+
+  color: #4e5969;
+
+  font-size: 23px;
+
+  cursor: pointer;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+.favorite-button:hover {
+  color: #e94b64;
+}
+
+
+/* ================= CARD CONTENT ================= */
+
+.city-card-content {
+  padding: 16px;
+}
+
+.city-title-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  gap: 10px;
+}
+
+.city-title-row h3 {
+  margin: 0;
+
+  font-size: 18px;
+}
+
+.city-title-row p {
+  margin: 5px 0 0;
+
+  color: #8992a2;
+
+  font-size: 12px;
+}
+
+.city-rating {
+  color: #e39a00;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+/* ================= DETAILS ================= */
+
+.city-details {
+  display: flex;
+
+  justify-content: space-between;
+
+  margin: 16px 0;
+
+  padding-top: 13px;
+
+  border-top: 1px solid #edf0f4;
+
+  color: #727c8d;
+
+  font-size: 11px;
+}
+
+.city-details div {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+}
+
+
+/* ================= BUTTONS ================= */
+
+.city-card-buttons {
+  display: flex;
+
+  gap: 8px;
+}
+
+.details-btn,
+.add-trip-btn {
+  flex: 1;
+
+  padding: 10px 5px;
+
+  border-radius: 7px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.details-btn {
+  border: 1px solid #dce3ed;
+
+  background: white;
+
+  color: #526074;
+}
+
+.details-btn:hover {
+  background: #f6f8fb;
+}
+
+.add-trip-btn {
+  border: 1px solid #1769e0;
+
+  background: #1769e0;
+
+  color: white;
+}
+
+.add-trip-btn:hover {
+  background: #0d5ac7;
+}
+
+
+/* ================= NO RESULTS ================= */
+
+.no-results {
+  background: white;
+
+  border: 1px solid #e5eaf1;
+
+  border-radius: 13px;
+
+  padding: 70px 20px;
+
+  text-align: center;
+}
+
+.no-results-icon {
+  font-size: 45px;
+}
+
+.no-results h2 {
+  margin: 12px 0 6px;
+}
+
+.no-results p {
+  color: #8992a2;
+
+  font-size: 13px;
+}
+
+.no-results button {
+  border: none;
+
+  background: #1769e0;
+
+  color: white;
+
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-weight: 700;
+}
+
+
+/* ================= TABLET ================= */
+
+@media (max-width: 1100px) {
+
+  .city-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 700px) {
+
+  .explore-navbar {
+    padding: 0 4%;
+  }
+
+  .explore-nav-links {
+    display: none;
+  }
+
+  .explore-profile span {
+    display: none;
+  }
+
+  .explore-container {
+    width: 92%;
+  }
+
+  .explore-header h1 {
+    font-size: 27px;
+  }
+
+  .destination-heading {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 15px;
+  }
+
+  .smart-button {
+    width: 100%;
+  }
+
+  .city-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .city-card-image {
+    height: 210px;
+  }
+
+}
+
+
+/* ================= SMALL MOBILE ================= */
+
+@media (max-width: 430px) {
+
+  .explore-logo {
+    font-size: 18px;
+  }
+
+  .explore-header h1 {
+    font-size: 24px;
+  }
+
+  .filter-section {
+    padding: 14px;
+  }
+
+  .filter-button {
+    padding: 8px 12px;
+  }
+
+}
