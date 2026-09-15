@@ -1,430 +1,345 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 import "./ItineraryView.css";
 
 function ItineraryView() {
-  const navigate = useNavigate();
-  const [selectedDay, setSelectedDay] = useState(1);
-
   const days = [
     {
-      day: 1,
-      date: "15 Dec 2026",
-      city: "Goa",
+      day: "Day 1",
+      date: "12 June 2026",
+      title: "Arrival & Pink City",
       activities: [
         {
           time: "09:00 AM",
-          title: "Breakfast at Beach Cafe",
-          category: "Food",
-          cost: 500,
-          icon: "🍳"
-        },
-        {
-          time: "11:00 AM",
-          title: "Baga Beach Visit",
-          category: "Sightseeing",
-          cost: 0,
-          icon: "🏖️"
+          title: "Travel to Jaipur",
+          location: "Ahmedabad → Jaipur",
+          duration: "5 hours",
+          image:
+            "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=500&q=80",
         },
         {
           time: "02:00 PM",
-          title: "Water Sports",
-          category: "Adventure",
-          cost: 1500,
-          icon: "🌊"
-        },
-        {
-          time: "07:00 PM",
-          title: "Night Market",
-          category: "Shopping",
-          cost: 800,
-          icon: "🛍️"
-        }
-      ]
-    },
-    {
-      day: 2,
-      date: "16 Dec 2026",
-      city: "Goa",
-      activities: [
-        {
-          time: "09:00 AM",
-          title: "Fort Aguada",
-          category: "Sightseeing",
-          cost: 200,
-          icon: "🏰"
-        },
-        {
-          time: "01:00 PM",
-          title: "Lunch",
-          category: "Food",
-          cost: 700,
-          icon: "🍛"
-        },
-        {
-          time: "04:00 PM",
-          title: "Dolphin Cruise",
-          category: "Adventure",
-          cost: 1200,
-          icon: "🐬"
-        }
-      ]
-    },
-    {
-      day: 3,
-      date: "17 Dec 2026",
-      city: "Panaji",
-      activities: [
-        {
-          time: "10:00 AM",
-          title: "Panaji City Tour",
-          category: "Sightseeing",
-          cost: 500,
-          icon: "🏙️"
-        },
-        {
-          time: "01:00 PM",
-          title: "Traditional Goan Lunch",
-          category: "Food",
-          cost: 900,
-          icon: "🍽️"
+          title: "Hotel Check-in",
+          location: "Jaipur Hotel",
+          duration: "1 hour",
+          image:
+            "https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=500&q=80",
         },
         {
           time: "05:00 PM",
-          title: "Fontainhas Walk",
-          category: "Culture",
-          cost: 300,
-          icon: "🚶"
-        }
-      ]
+          title: "Explore Pink City",
+          location: "Old Jaipur",
+          duration: "2 hours",
+          image:
+            "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=500&q=80",
+        },
+      ],
     },
     {
-      day: 4,
-      date: "18 Dec 2026",
-      city: "Old Goa",
-      activities: [
-        {
-          time: "09:30 AM",
-          title: "Basilica of Bom Jesus",
-          category: "Culture",
-          cost: 0,
-          icon: "⛪"
-        },
-        {
-          time: "12:30 PM",
-          title: "Lunch",
-          category: "Food",
-          cost: 600,
-          icon: "🍴"
-        },
-        {
-          time: "03:00 PM",
-          title: "Old Goa Heritage Tour",
-          category: "Culture",
-          cost: 700,
-          icon: "🏛️"
-        }
-      ]
-    },
-    {
-      day: 5,
-      date: "19 Dec 2026",
-      city: "Goa",
-      activities: [
-        {
-          time: "08:00 AM",
-          title: "Sunrise Beach Walk",
-          category: "Nature",
-          cost: 0,
-          icon: "🌅"
-        },
-        {
-          time: "11:00 AM",
-          title: "Scuba Diving",
-          category: "Adventure",
-          cost: 2000,
-          icon: "🤿"
-        },
-        {
-          time: "06:00 PM",
-          title: "Sunset Cruise",
-          category: "Nature",
-          cost: 1500,
-          icon: "⛵"
-        }
-      ]
-    },
-    {
-      day: 6,
-      date: "20 Dec 2026",
-      city: "Goa",
+      day: "Day 2",
+      date: "13 June 2026",
+      title: "Historical Jaipur",
       activities: [
         {
           time: "09:00 AM",
-          title: "Shopping",
-          category: "Shopping",
-          cost: 1200,
-          icon: "🛒"
+          title: "Visit City Palace",
+          location: "City Palace, Jaipur",
+          duration: "2 hours",
+          image:
+            "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=500&q=80",
         },
         {
           time: "12:00 PM",
-          title: "Final Lunch",
-          category: "Food",
-          cost: 800,
-          icon: "🍱"
+          title: "Lunch & Local Food",
+          location: "Pink City Restaurant",
+          duration: "1 hour",
+          image:
+            "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=500&q=80",
         },
         {
           time: "04:00 PM",
-          title: "Airport Transfer",
-          category: "Transport",
-          cost: 1000,
-          icon: "🚕"
-        }
-      ]
-    }
+          title: "Hawa Mahal",
+          location: "Hawa Mahal, Jaipur",
+          duration: "2 hours",
+          image:
+            "https://images.unsplash.com/photo-1599661046827-dacff0c2b3b7?auto=format&fit=crop&w=500&q=80",
+        },
+      ],
+    },
+    {
+      day: "Day 3",
+      date: "14 June 2026",
+      title: "Forts & Sunset",
+      activities: [
+        {
+          time: "08:00 AM",
+          title: "Amber Fort",
+          location: "Amer, Jaipur",
+          duration: "3 hours",
+          image:
+            "https://images.unsplash.com/photo-1599661046827-dacff0c2b3b7?auto=format&fit=crop&w=500&q=80",
+        },
+        {
+          time: "01:00 PM",
+          title: "Lunch & Rest",
+          location: "Jaipur",
+          duration: "2 hours",
+          image:
+            "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=500&q=80",
+        },
+        {
+          time: "06:00 PM",
+          title: "Nahargarh Sunset",
+          location: "Nahargarh Fort",
+          duration: "2 hours",
+          image:
+            "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=500&q=80",
+        },
+      ],
+    },
   ];
 
-  const currentDay = days.find((item) => item.day === selectedDay);
-
-  const totalActivities = days.reduce(
-    (total, day) => total + day.activities.length,
-    0
-  );
-
-  const estimatedCost = days.reduce(
-    (total, day) =>
-      total +
-      day.activities.reduce((sum, activity) => sum + activity.cost, 0),
-    0
-  );
-
   return (
-    <div className="itinerary-page">
+    <div className="page">
+      <Navbar />
 
-      {/* NAVBAR */}
-      <nav className="itinerary-navbar">
-        <div
-          className="itinerary-logo"
-          onClick={() => navigate("/dashboard")}
-        >
-          <span>🌍</span>
-          <div>
-            <strong>GlobeTrotter</strong>
-            <small>Travel your way</small>
-          </div>
-        </div>
+      <main className="itinerary-view-page">
+        <div className="container">
 
-        <div className="itinerary-nav-links">
-          <button onClick={() => navigate("/dashboard")}>Home</button>
-          <button onClick={() => navigate("/my-trips")}>My Trips</button>
-          <button className="active">Itinerary</button>
-          <button onClick={() => navigate("/budget")}>Budget</button>
-        </div>
-
-        <div className="itinerary-profile">
-          <div className="profile-avatar">K</div>
-          <span>Keyuri</span>
-        </div>
-      </nav>
-
-      {/* MAIN */}
-      <main className="itinerary-container">
-
-        {/* HEADER */}
-        <section className="itinerary-header">
-          <div>
-            <span className="trip-label">MY ITINERARY</span>
-            <h1>Goa Adventure 🌴</h1>
-            <p>📅 15 Dec – 20 Dec 2026 &nbsp; • &nbsp; 📍 Goa, India</p>
-          </div>
-
-          <div className="itinerary-header-buttons">
-            <button
-              className="share-button"
-              onClick={() => alert("Trip sharing link copied!")}
-            >
-              🔗 Share Trip
-            </button>
-
-            <button
-              className="edit-button"
-              onClick={() => navigate("/itinerary-builder")}
-            >
-              ✏️ Edit Itinerary
-            </button>
-          </div>
-        </section>
-
-        {/* SUMMARY */}
-        <section className="itinerary-summary">
-
-          <div className="summary-card">
-            <div className="summary-icon">📅</div>
+          <div className="itinerary-view-header">
             <div>
-              <span>Duration</span>
-              <strong>6 Days</strong>
+              <span className="label">MY ITINERARY</span>
+              <h1>Jaipur Adventure</h1>
+              <p>
+                Your personalized day-by-day travel plan.
+              </p>
+            </div>
+
+            <div className="header-actions">
+              <Link to="/share-trip" className="btn secondary">
+                🔗 Share
+              </Link>
+
+              <Link to="/itinerary-builder" className="btn">
+                ✏️ Edit
+              </Link>
             </div>
           </div>
 
-          <div className="summary-card">
-            <div className="summary-icon">📍</div>
-            <div>
-              <span>Cities</span>
-              <strong>3 Cities</strong>
-            </div>
-          </div>
+          <div className="itinerary-hero">
 
-          <div className="summary-card">
-            <div className="summary-icon">🎯</div>
-            <div>
-              <span>Activities</span>
-              <strong>{totalActivities}</strong>
-            </div>
-          </div>
+            <img
+              src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1400&q=85"
+              alt="Jaipur"
+            />
 
-          <div className="summary-card">
-            <div className="summary-icon">💰</div>
-            <div>
-              <span>Estimated Cost</span>
-              <strong>₹{estimatedCost.toLocaleString()}</strong>
-            </div>
-          </div>
-
-        </section>
-
-        {/* DAY SELECTOR */}
-        <section className="day-selector-section">
-          <div className="section-heading">
-            <h2>Your Trip Timeline</h2>
-            <span>6 days planned</span>
-          </div>
-
-          <div className="day-selector">
-            {days.map((day) => (
-              <button
-                key={day.day}
-                className={selectedDay === day.day ? "selected" : ""}
-                onClick={() => setSelectedDay(day.day)}
-              >
-                <span>Day {day.day}</span>
-                <small>{day.date}</small>
-              </button>
-            ))}
-          </div>
-        </section>
-
-        {/* CURRENT DAY */}
-        <section className="timeline-section">
-
-          <div className="timeline-title">
-            <div>
-              <span>DAY {currentDay.day}</span>
-              <h2>{currentDay.city}</h2>
+            <div className="itinerary-hero-overlay">
+              <span>5 DAY JOURNEY</span>
+              <h2>Discover the Pink City</h2>
+              <p>
+                Explore historic forts, beautiful palaces and local
+                experiences in Jaipur.
+              </p>
             </div>
 
-            <div className="timeline-date">
-              {currentDay.date}
-            </div>
           </div>
 
-          <div className="timeline">
+          <div className="trip-overview card">
 
-            {currentDay.activities.map((activity, index) => (
-              <div className="timeline-item" key={index}>
+            <div className="overview-item">
+              <span className="overview-icon">📍</span>
+              <div>
+                <small>DESTINATION</small>
+                <strong>Jaipur, Rajasthan</strong>
+              </div>
+            </div>
 
-                <div className="timeline-time">
-                  {activity.time}
-                </div>
+            <div className="overview-item">
+              <span className="overview-icon">📅</span>
+              <div>
+                <small>TRAVEL DATES</small>
+                <strong>12 Jun – 16 Jun 2026</strong>
+              </div>
+            </div>
 
-                <div className="timeline-line">
-                  <div className="timeline-dot">
-                    {activity.icon}
-                  </div>
-                </div>
+            <div className="overview-item">
+              <span className="overview-icon">👥</span>
+              <div>
+                <small>TRAVELERS</small>
+                <strong>2 Travelers</strong>
+              </div>
+            </div>
 
-                <div className="activity-card">
+            <div className="overview-item">
+              <span className="overview-icon">💰</span>
+              <div>
+                <small>ESTIMATED BUDGET</small>
+                <strong>₹25,000</strong>
+              </div>
+            </div>
 
-                  <div className="activity-main">
-                    <h3>{activity.title}</h3>
+          </div>
 
-                    <div className="activity-info">
-                      <span>{activity.category}</span>
-                      <span>💰 ₹{activity.cost.toLocaleString()}</span>
+          <div className="itinerary-layout">
+
+            <section className="days-section">
+
+              {days.map((day) => (
+                <div className="day-card card" key={day.day}>
+
+                  <div className="day-header">
+
+                    <div className="day-number">
+                      {day.day.replace("Day ", "")}
                     </div>
+
+                    <div className="day-heading">
+                      <span>{day.date}</span>
+                      <h2>{day.title}</h2>
+                    </div>
+
+                    <span className="day-count">
+                      {day.activities.length} Activities
+                    </span>
+
                   </div>
 
-                  <button
-                    className="activity-more"
-                    onClick={() =>
-                      alert(`${activity.title} selected`)
-                    }
-                  >
-                    ⋮
-                  </button>
+                  <div className="itinerary-timeline">
 
+                    {day.activities.map((activity, index) => (
+                      <div
+                        className="itinerary-item"
+                        key={activity.title}
+                      >
+
+                        <div className="item-time">
+                          <strong>{activity.time}</strong>
+                          <span>{activity.duration}</span>
+                        </div>
+
+                        <div className="item-line">
+
+                          <div className="item-dot">
+                            <img
+                              src={activity.image}
+                              alt={activity.title}
+                            />
+                          </div>
+
+                          {index !== day.activities.length - 1 && (
+                            <div className="item-connector"></div>
+                          )}
+
+                        </div>
+
+                        <div className="item-content">
+
+                          <div className="activity-photo">
+                            <img
+                              src={activity.image}
+                              alt={activity.title}
+                            />
+                          </div>
+
+                          <div className="activity-info">
+                            <h3>{activity.title}</h3>
+                            <p>📍 {activity.location}</p>
+                          </div>
+
+                        </div>
+
+                      </div>
+                    ))}
+
+                  </div>
+
+                </div>
+              ))}
+
+            </section>
+
+            <aside className="itinerary-side">
+
+              <div className="summary-card card">
+
+                <span className="label">TRIP SUMMARY</span>
+
+                <h2>Jaipur Adventure</h2>
+
+                <div className="summary-row">
+                  <span>🗓️ Duration</span>
+                  <strong>5 Days</strong>
+                </div>
+
+                <div className="summary-row">
+                  <span>🎯 Activities</span>
+                  <strong>9</strong>
+                </div>
+
+                <div className="summary-row">
+                  <span>👥 Travelers</span>
+                  <strong>2</strong>
+                </div>
+
+                <div className="summary-row">
+                  <span>💰 Budget</span>
+                  <strong>₹25,000</strong>
+                </div>
+
+                <Link to="/budget" className="btn budget-btn">
+                  View Budget →
+                </Link>
+
+              </div>
+
+              <div className="progress-card card">
+
+                <span className="label">TRIP PROGRESS</span>
+
+                <div className="progress-heading">
+                  <strong>Planning Complete</strong>
+                  <span>85%</span>
+                </div>
+
+                <div className="progress-bar">
+                  <div className="progress-fill"></div>
+                </div>
+
+                <p>
+                  Most of your trip has been planned. Add remaining
+                  activities to complete your itinerary.
+                </p>
+
+              </div>
+
+              <div className="view-tip">
+
+                <span>💡</span>
+
+                <div>
+                  <strong>Travel Tip</strong>
+                  <p>
+                    Keep your itinerary flexible and leave some free
+                    time for unexpected discoveries.
+                  </p>
                 </div>
 
               </div>
-            ))}
+
+              <Link
+                to="/share-trip"
+                className="btn share-trip-btn"
+              >
+                🔗 Share This Trip
+              </Link>
+
+            </aside>
 
           </div>
 
-        </section>
-
-        {/* TIP */}
-        <section className="planning-tip">
-          <div className="tip-icon">💡</div>
-          <div>
-            <h3>Smart Planning Tip</h3>
-            <p>
-              Keep some free time between activities so you can explore
-              unexpected places and enjoy your trip without rushing.
-            </p>
-          </div>
-        </section>
-
-        {/* BOTTOM ACTIONS */}
-        <section className="itinerary-actions">
-
-          <button onClick={() => navigate("/dashboard")}>
-            ← Dashboard
-          </button>
-
-          <button onClick={() => navigate("/budget")}>
-            💰 View Budget
-          </button>
-
-          <button onClick={() => navigate("/itinerary-builder")}>
-            ✏️ Edit Trip
-          </button>
-
-        </section>
-
+        </div>
       </main>
-
-      {/* MOBILE NAV */}
-      <div className="mobile-itinerary-nav">
-        <button onClick={() => navigate("/dashboard")}>
-          🏠
-          <span>Home</span>
-        </button>
-
-        <button onClick={() => navigate("/my-trips")}>
-          🧳
-          <span>Trips</span>
-        </button>
-
-        <button className="mobile-active">
-          📅
-          <span>Plan</span>
-        </button>
-
-        <button onClick={() => navigate("/budget")}>
-          💰
-          <span>Budget</span>
-        </button>
-      </div>
-
     </div>
   );
 }

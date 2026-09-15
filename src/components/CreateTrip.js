@@ -1,310 +1,320 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 import "./CreateTrip.css";
 
 function CreateTrip() {
   const navigate = useNavigate();
 
-  const [trip, setTrip] = useState({
+  const [form, setForm] = useState({
     tripName: "",
+    destination: "",
     startDate: "",
     endDate: "",
-    description: "",
+    travelers: "2",
+    budget: "",
+    tripType: "Leisure",
+    notes: "",
   });
 
-  const [coverPhoto, setCoverPhoto] = useState(null);
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
-    setTrip({
-      ...trip,
+    setForm({
+      ...form,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const handlePhotoChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      setCoverPhoto(URL.createObjectURL(file));
-    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (
-      !trip.tripName ||
-      !trip.startDate ||
-      !trip.endDate ||
-      !trip.description
+      !form.tripName ||
+      !form.destination ||
+      !form.startDate ||
+      !form.endDate ||
+      !form.budget
     ) {
-      alert("Please fill all required fields.");
+      setMessage("Please fill all required fields.");
       return;
     }
 
-    if (trip.endDate < trip.startDate) {
-      alert("End date cannot be before start date.");
-      return;
-    }
+    setMessage("Trip created successfully!");
 
-    alert("Trip created successfully!");
-
-    navigate("/my-trips");
+    setTimeout(() => {
+      navigate("/my-trips");
+    }, 800);
   };
 
   return (
-    <div className="create-trip-page">
+    <div className="page">
+      <Navbar />
 
-      {/* Navbar */}
-      <nav className="create-trip-navbar">
+      <main className="create-trip-page">
+        <div className="container">
 
-        <div
-          className="create-trip-logo"
-          onClick={() => navigate("/dashboard")}
-        >
-          🌍 <span>GlobeTrotter</span>
-        </div>
-
-        <div className="create-trip-nav-links">
-          <button onClick={() => navigate("/dashboard")}>
-            Home
-          </button>
-
-          <button onClick={() => navigate("/my-trips")}>
-            My Trips
-          </button>
-
-          <button>
-            Explore
-          </button>
-
-          <button>
-            Budget
-          </button>
-        </div>
-
-        <div className="create-trip-profile">
-          <span className="notification">🔔</span>
-          <div className="profile-circle">K</div>
-          <span>Keyuri</span>
-        </div>
-
-      </nav>
-
-      {/* Main Content */}
-      <main className="create-trip-container">
-
-        <div className="create-trip-heading">
-          <button
-            className="back-button"
-            onClick={() => navigate("/dashboard")}
-          >
-            ← Back
-          </button>
-
-          <div>
-            <h1>Plan Your Trip ✈️</h1>
-            <p>
-              Create a new journey and start planning your perfect adventure.
-            </p>
-          </div>
-        </div>
-
-        <div className="create-trip-layout">
-
-          {/* Left Information Card */}
-          <div className="trip-info-card">
-
-            <div className="trip-info-icon">
-              🌍
+          <div className="create-header">
+            <div>
+              <span className="label">TRIP PLANNER</span>
+              <h1>Create Your Trip</h1>
+              <p>
+                Add your travel details and start building your personalized
+                journey.
+              </p>
             </div>
 
-            <h2>Your next adventure starts here</h2>
-
-            <p>
-              Tell us a little about your trip. You can add destinations,
-              activities, budget and itinerary after creating your trip.
-            </p>
-
-            <div className="trip-info-items">
-
-              <div>
-                <span>📍</span>
-                <div>
-                  <strong>Multiple destinations</strong>
-                  <small>Add cities to your journey</small>
-                </div>
-              </div>
-
-              <div>
-                <span>📅</span>
-                <div>
-                  <strong>Flexible itinerary</strong>
-                  <small>Plan your days easily</small>
-                </div>
-              </div>
-
-              <div>
-                <span>💰</span>
-                <div>
-                  <strong>Smart budget</strong>
-                  <small>Track your travel expenses</small>
-                </div>
-              </div>
-
-            </div>
-
+            <Link to="/dashboard" className="btn secondary">
+              ← Dashboard
+            </Link>
           </div>
 
-          {/* Form */}
-          <div className="create-trip-card">
+          <div className="create-layout">
 
-            <div className="form-header">
-              <h2>Trip Details</h2>
-              <p>Enter the basic information about your trip.</p>
-            </div>
+            <section className="trip-form-card card">
 
-            <form onSubmit={handleSubmit}>
+              <div className="form-card-header">
+                <div>
+                  <span className="label">TRIP DETAILS</span>
+                  <h2>Tell us about your trip</h2>
+                </div>
 
-              {/* Trip Name */}
-              <div className="form-group">
-                <label>
-                  Trip Name <span>*</span>
-                </label>
-
-                <input
-                  type="text"
-                  name="tripName"
-                  placeholder="e.g. Goa Adventure"
-                  value={trip.tripName}
-                  onChange={handleChange}
-                />
+                <div className="form-header-icon">
+                  ✈️
+                </div>
               </div>
 
-              {/* Dates */}
-              <div className="date-row">
+              {message && (
+                <div
+                  className={
+                    message.includes("successfully")
+                      ? "success"
+                      : "danger"
+                  }
+                >
+                  {message}
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit}>
 
                 <div className="form-group">
-                  <label>
-                    Start Date <span>*</span>
-                  </label>
-
+                  <label>Trip Name *</label>
                   <input
-                    type="date"
-                    name="startDate"
-                    value={trip.startDate}
+                    type="text"
+                    name="tripName"
+                    placeholder="e.g. Jaipur Adventure"
+                    value={form.tripName}
                     onChange={handleChange}
                   />
                 </div>
 
                 <div className="form-group">
-                  <label>
-                    End Date <span>*</span>
-                  </label>
-
+                  <label>Destination *</label>
                   <input
-                    type="date"
-                    name="endDate"
-                    value={trip.endDate}
+                    type="text"
+                    name="destination"
+                    placeholder="e.g. Jaipur, Rajasthan"
+                    value={form.destination}
                     onChange={handleChange}
                   />
                 </div>
 
-              </div>
+                <div className="form-grid">
 
-              {/* Description */}
-              <div className="form-group">
-                <label>
-                  Description <span>*</span>
-                </label>
+                  <div className="form-group">
+                    <label>Start Date *</label>
+                    <input
+                      type="date"
+                      name="startDate"
+                      value={form.startDate}
+                      onChange={handleChange}
+                    />
+                  </div>
 
-                <textarea
-                  name="description"
-                  rows="5"
-                  placeholder="Tell us about your trip..."
-                  value={trip.description}
-                  onChange={handleChange}
-                ></textarea>
-              </div>
+                  <div className="form-group">
+                    <label>End Date *</label>
+                    <input
+                      type="date"
+                      name="endDate"
+                      value={form.endDate}
+                      onChange={handleChange}
+                    />
+                  </div>
 
-              {/* Cover Photo */}
-              <div className="form-group">
+                </div>
 
-                <label>Cover Photo</label>
+                <div className="form-grid">
 
-                <div className="photo-upload">
-
-                  {coverPhoto ? (
-                    <div className="photo-preview">
-                      <img
-                        src={coverPhoto}
-                        alt="Trip Cover"
-                      />
-
-                      <label
-                        htmlFor="coverPhoto"
-                        className="change-photo"
-                      >
-                        Change Photo
-                      </label>
-                    </div>
-                  ) : (
-                    <label
-                      htmlFor="coverPhoto"
-                      className="upload-box"
+                  <div className="form-group">
+                    <label>Travelers</label>
+                    <select
+                      name="travelers"
+                      value={form.travelers}
+                      onChange={handleChange}
                     >
-                      <div className="upload-icon">
-                        📷
-                      </div>
+                      <option value="1">1 Traveler</option>
+                      <option value="2">2 Travelers</option>
+                      <option value="3">3 Travelers</option>
+                      <option value="4">4 Travelers</option>
+                      <option value="5">5 Travelers</option>
+                      <option value="6">6 Travelers</option>
+                      <option value="7">7 Travelers</option>
+                      <option value="8">8+ Travelers</option>
+                    </select>
+                  </div>
 
-                      <strong>Upload a cover photo</strong>
+                  <div className="form-group">
+                    <label>Estimated Budget *</label>
+                    <input
+                      type="number"
+                      name="budget"
+                      placeholder="₹ 25,000"
+                      min="0"
+                      value={form.budget}
+                      onChange={handleChange}
+                    />
+                  </div>
 
-                      <span>
-                        PNG, JPG or JPEG
-                      </span>
-                    </label>
-                  )}
+                </div>
 
-                  <input
-                    id="coverPhoto"
-                    type="file"
-                    accept="image/png,image/jpeg"
-                    onChange={handlePhotoChange}
-                    hidden
-                  />
+                <div className="form-group">
+                  <label>Trip Type</label>
 
+                  <div className="trip-types">
+
+                    {[
+                      "Leisure",
+                      "Adventure",
+                      "Family",
+                      "Business",
+                      "Solo",
+                    ].map((type) => (
+                      <button
+                        type="button"
+                        key={type}
+                        className={
+                          form.tripType === type
+                            ? "trip-type active"
+                            : "trip-type"
+                        }
+                        onClick={() =>
+                          setForm({
+                            ...form,
+                            tripType: type,
+                          })
+                        }
+                      >
+                        {type}
+                      </button>
+                    ))}
+
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label>Travel Notes</label>
+                  <textarea
+                    name="notes"
+                    rows="4"
+                    placeholder="Tell us about your preferences, places you want to visit or anything important..."
+                    value={form.notes}
+                    onChange={handleChange}
+                  ></textarea>
+                </div>
+
+                <div className="form-actions">
+                  <Link to="/dashboard" className="btn secondary">
+                    Cancel
+                  </Link>
+
+                  <button type="submit" className="btn">
+                    Create Trip →
+                  </button>
+                </div>
+
+              </form>
+            </section>
+
+            <aside className="trip-side">
+
+              <div className="travel-photo">
+                <img
+                  src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=900&q=85"
+                  alt="Travel destination"
+                />
+
+                <div className="photo-overlay">
+                  <span>YOUR NEXT ADVENTURE</span>
+                  <h2>Explore. Plan. Travel.</h2>
+                  <p>
+                    Create a trip that matches your interests and budget.
+                  </p>
+                </div>
+              </div>
+
+              <div className="planning-info card">
+
+                <span className="label">WHAT'S NEXT?</span>
+
+                <h2>Your Trip Journey</h2>
+
+                <div className="journey-step">
+                  <div className="step-number">1</div>
+                  <div>
+                    <strong>Create Trip</strong>
+                    <small>Add your destination and travel details</small>
+                  </div>
+                </div>
+
+                <div className="journey-line"></div>
+
+                <div className="journey-step">
+                  <div className="step-number">2</div>
+                  <div>
+                    <strong>Build Itinerary</strong>
+                    <small>Plan activities day by day</small>
+                  </div>
+                </div>
+
+                <div className="journey-line"></div>
+
+                <div className="journey-step">
+                  <div className="step-number">3</div>
+                  <div>
+                    <strong>Manage Budget</strong>
+                    <small>Keep your travel expenses organized</small>
+                  </div>
+                </div>
+
+                <div className="journey-line"></div>
+
+                <div className="journey-step">
+                  <div className="step-number">4</div>
+                  <div>
+                    <strong>Share Trip</strong>
+                    <small>Invite your travel partners</small>
+                  </div>
                 </div>
 
               </div>
 
-              {/* Buttons */}
-              <div className="form-buttons">
-
-                <button
-                  type="button"
-                  className="cancel-button"
-                  onClick={() => navigate("/dashboard")}
-                >
-                  Cancel
-                </button>
-
-                <button
-                  type="submit"
-                  className="create-button"
-                >
-                  Create Trip →
-                </button>
-
+              <div className="create-tip">
+                <span>💡</span>
+                <div>
+                  <strong>Planning Tip</strong>
+                  <p>
+                    Set a realistic budget before adding activities to
+                    keep your trip stress-free.
+                  </p>
+                </div>
               </div>
 
-            </form>
+            </aside>
 
           </div>
-
         </div>
-
       </main>
-
     </div>
   );
 }

@@ -1,558 +1,316 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 import "./ActivitySearch.css";
 
 function ActivitySearch() {
-  const navigate = useNavigate();
-
   const [search, setSearch] = useState("");
-  const [selectedCity, setSelectedCity] = useState("All Cities");
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedCost, setSelectedCost] = useState("All");
+  const [category, setCategory] = useState("All");
+  const [sort, setSort] = useState("Recommended");
+  const [favorites, setFavorites] = useState([]);
 
   const activities = [
     {
       id: 1,
-      name: "Baga Beach Water Sports",
-      city: "Goa",
-      category: "Adventure",
-      cost: 1200,
-      duration: "3 Hours",
-      rating: 4.8,
-      image:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
-      description:
-        "Enjoy exciting water sports and beach activities at Baga Beach."
+      name: "New York City Exploration",
+      city: "New York, USA",
+      category: "Culture",
+      duration: "3 hours",
+      price: 450,
+      image: "https://images.unsplash.com/photo-1501466044931-62695aada8e9?auto=format&fit=crop&w=800&q=85",
+      description: "Explore iconic places, city views and the vibrant culture of New York."
     },
     {
       id: 2,
-      name: "Old Goa Heritage Walk",
-      city: "Goa",
-      category: "Culture",
-      cost: 500,
-      duration: "2 Hours",
-      rating: 4.6,
-      image:
-        "https://images.unsplash.com/photo-1593693411515-c20261bcad6e?auto=format&fit=crop&w=800&q=80",
-      description:
-        "Explore historical churches and Portuguese architecture."
+      name: "Paragliding Adventure",
+      city: "Manali",
+      category: "Adventure",
+      duration: "2 hours",
+      price: 1800,
+      image: "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=800&q=85",
+      description: "Experience breathtaking mountain views from the sky."
     },
     {
       id: 3,
-      name: "Scuba Diving",
+      name: "Beach Sunset Walk",
       city: "Goa",
-      category: "Adventure",
-      cost: 2500,
-      duration: "4 Hours",
-      rating: 4.9,
-      image:
-        "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80",
-      description:
-        "Discover beautiful underwater marine life with a guided dive."
+      category: "Nature",
+      duration: "1 hour",
+      price: 0,
+      image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=85",
+      description: "Enjoy a peaceful walk along the beach during sunset."
     },
     {
       id: 4,
-      name: "Bali Temple Tour",
-      city: "Bali",
-      category: "Culture",
-      cost: 1800,
-      duration: "5 Hours",
-      rating: 4.7,
-      image:
-        "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80",
-      description:
-        "Visit beautiful Balinese temples and learn about local culture."
+      name: "Rajasthani Food Tour",
+      city: "Jaipur",
+      category: "Food",
+      duration: "2 hours",
+      price: 900,
+      image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=85",
+      description: "Taste authentic local dishes and discover Jaipur's food culture."
     },
     {
       id: 5,
-      name: "Bali Jungle Trek",
-      city: "Bali",
-      category: "Nature",
-      cost: 2200,
-      duration: "6 Hours",
-      rating: 4.8,
-      image:
-        "https://images.unsplash.com/photo-1539367628448-4bc5c9d171c8?auto=format&fit=crop&w=800&q=80",
-      description:
-        "Experience an adventurous trek through tropical forests."
+      name: "City Palace Visit",
+      city: "Udaipur",
+      category: "Culture",
+      duration: "2 hours",
+      price: 350,
+      image: "https://images.unsplash.com/photo-1603262110263-fb0112e7cc33?auto=format&fit=crop&w=800&q=85",
+      description: "Discover royal history and architecture beside Lake Pichola."
     },
     {
       id: 6,
-      name: "Paris City Tour",
-      city: "Paris",
-      category: "Sightseeing",
-      cost: 3000,
-      duration: "5 Hours",
-      rating: 4.8,
-      image:
-        "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
-      description:
-        "Discover famous landmarks and beautiful streets of Paris."
+      name: "Mountain Trek",
+      city: "Manali",
+      category: "Adventure",
+      duration: "5 hours",
+      price: 1200,
+      image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=85",
+      description: "Walk through scenic mountain trails surrounded by nature."
     },
     {
       id: 7,
-      name: "Eiffel Tower Evening",
-      city: "Paris",
-      category: "Sightseeing",
-      cost: 2500,
-      duration: "3 Hours",
-      rating: 4.9,
-      image:
-        "https://images.unsplash.com/photo-1543349689-9a4d426bee8e?auto=format&fit=crop&w=800&q=80",
-      description:
-        "Enjoy an unforgettable evening around the Eiffel Tower."
+      name: "Backwater Cruise",
+      city: "Kerala",
+      category: "Nature",
+      duration: "3 hours",
+      price: 1500,
+      image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=85",
+      description: "Relax on a traditional boat while exploring Kerala's backwaters."
     },
     {
       id: 8,
-      name: "Dubai Desert Safari",
-      city: "Dubai",
-      category: "Adventure",
-      cost: 3500,
-      duration: "6 Hours",
-      rating: 4.9,
-      image:
-        "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80",
-      description:
-        "Experience dune bashing, desert views and traditional activities."
-    },
-    {
-      id: 9,
-      name: "Dubai Marina Cruise",
-      city: "Dubai",
-      category: "Luxury",
-      cost: 2800,
-      duration: "2 Hours",
-      rating: 4.7,
-      image:
-        "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80",
-      description:
-        "Relax on a beautiful cruise while enjoying Dubai skyline views."
-    },
-    {
-      id: 10,
-      name: "Tokyo Food Experience",
-      city: "Tokyo",
+      name: "Local Market Experience",
+      city: "Delhi",
       category: "Food",
-      cost: 2000,
-      duration: "3 Hours",
-      rating: 4.8,
-      image:
-        "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80",
-      description:
-        "Taste authentic Japanese food and explore local food streets."
+      duration: "2 hours",
+      price: 600,
+      image: "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=800&q=85",
+      description: "Explore local markets and discover authentic street food."
     }
   ];
 
-  const categories = [
-    "All",
-    "Adventure",
-    "Culture",
-    "Nature",
-    "Sightseeing",
-    "Food",
-    "Luxury"
-  ];
+  const filteredActivities = activities
+    .filter((activity) => {
+      const matchesSearch =
+        activity.name.toLowerCase().includes(search.toLowerCase()) ||
+        activity.city.toLowerCase().includes(search.toLowerCase());
 
-  const cities = [
-    "All Cities",
-    "Goa",
-    "Bali",
-    "Paris",
-    "Dubai",
-    "Tokyo"
-  ];
+      const matchesCategory =
+        category === "All" || activity.category === category;
 
-  const filteredActivities = activities.filter((activity) => {
-    const searchMatch =
-      activity.name.toLowerCase().includes(search.toLowerCase()) ||
-      activity.city.toLowerCase().includes(search.toLowerCase()) ||
-      activity.category.toLowerCase().includes(search.toLowerCase());
+      return matchesSearch && matchesCategory;
+    })
+    .sort((a, b) => {
+      if (sort === "Price Low") return a.price - b.price;
+      if (sort === "Price High") return b.price - a.price;
+      if (sort === "Duration") return a.duration.localeCompare(b.duration);
+      return 0;
+    });
 
-    const cityMatch =
-      selectedCity === "All Cities" ||
-      activity.city === selectedCity;
-
-    const categoryMatch =
-      selectedCategory === "All" ||
-      activity.category === selectedCategory;
-
-    let costMatch = true;
-
-    if (selectedCost === "Under ₹1000") {
-      costMatch = activity.cost < 1000;
-    } else if (selectedCost === "₹1000 - ₹2000") {
-      costMatch = activity.cost >= 1000 && activity.cost <= 2000;
-    } else if (selectedCost === "Above ₹2000") {
-      costMatch = activity.cost > 2000;
-    }
-
-    return searchMatch && cityMatch && categoryMatch && costMatch;
-  });
-
-  const addToItinerary = (activity) => {
-    alert(
-      `"${activity.name}" added to your itinerary successfully!`
+  const toggleFavorite = (id) => {
+    setFavorites((current) =>
+      current.includes(id)
+        ? current.filter((item) => item !== id)
+        : [...current, id]
     );
   };
 
-  const viewDetails = (activity) => {
-    alert(
-      `${activity.name}\n\nCity: ${activity.city}\nCategory: ${activity.category}\nCost: ₹${activity.cost}\nDuration: ${activity.duration}\nRating: ${activity.rating}`
-    );
+  const addActivity = (activity) => {
+    alert(`${activity.name} added to your itinerary.`);
   };
 
   return (
-    <div className="activity-page">
+    <div className="page">
+      <Navbar />
 
-      {/* NAVBAR */}
-      <nav className="activity-navbar">
-        <div
-          className="activity-logo"
-          onClick={() => navigate("/dashboard")}
-        >
-          <span className="logo-icon">✈</span>
-          <div>
-            <h2>GlobeTrotter</h2>
-            <small>Travel Your Way</small>
-          </div>
-        </div>
+      <main className="activity-search-page">
+        <div className="container">
 
-        <div className="activity-nav-links">
-          <button onClick={() => navigate("/dashboard")}>
-            Home
-          </button>
+          <div className="activity-header">
+            <div>
+              <span className="label">DISCOVER EXPERIENCES</span>
+              <h1>Find Things To Do</h1>
+              <p>
+                Discover activities and experiences that make your trip memorable.
+              </p>
+            </div>
 
-          <button onClick={() => navigate("/my-trips")}>
-            My Trips
-          </button>
-
-          <button onClick={() => navigate("/explore")}>
-            Explore
-          </button>
-
-          <button className="active">
-            Activities
-          </button>
-        </div>
-
-        <div className="activity-profile">
-          <div className="notification">🔔</div>
-
-          <div className="profile-circle">
-            K
+            <Link to="/itinerary-builder" className="btn">
+              🗓️ My Itinerary
+            </Link>
           </div>
 
-          <span>Keyuri</span>
-        </div>
-      </nav>
+          <div className="activity-search-box card">
+            <div className="search-input-wrapper">
+              <span>🔍</span>
 
-      {/* PAGE HEADER */}
-      <section className="activity-header">
-        <div>
-          <button
-            className="back-button"
-            onClick={() => navigate("/dashboard")}
-          >
-            ← Back to Dashboard
-          </button>
+              <input
+                type="text"
+                placeholder="Search activities or destinations..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
 
-          <h1>Discover Activities</h1>
+              {search && (
+                <button onClick={() => setSearch("")}>
+                  ×
+                </button>
+              )}
+            </div>
 
-          <p>
-            Find exciting things to do and add them to your
-            personalized itinerary.
-          </p>
-        </div>
-
-        <div className="activity-header-icon">
-          🗺️
-        </div>
-      </section>
-
-      {/* SEARCH */}
-      <section className="activity-search-section">
-
-        <div className="activity-search-box">
-          <span>🔍</span>
-
-          <input
-            type="text"
-            placeholder="Search activities, cities or categories..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-
-        <button
-          className="smart-button"
-          onClick={() =>
-            alert(
-              "Smart Recommendation feature will suggest activities based on your trip preferences."
-            )
-          }
-        >
-          ✨ Smart Recommendations
-        </button>
-
-      </section>
-
-      {/* FILTERS */}
-      <section className="activity-filters">
-
-        <div className="filter-group">
-          <label>📍 City</label>
-
-          <select
-            value={selectedCity}
-            onChange={(e) =>
-              setSelectedCity(e.target.value)
-            }
-          >
-            {cities.map((city) => (
-              <option key={city}>{city}</option>
-            ))}
-          </select>
-        </div>
-
-        <div className="filter-group">
-          <label>🏷️ Category</label>
-
-          <select
-            value={selectedCategory}
-            onChange={(e) =>
-              setSelectedCategory(e.target.value)
-            }
-          >
-            {categories.map((category) => (
-              <option key={category}>{category}</option>
-            ))}
-          </select>
-        </div>
-
-        <div className="filter-group">
-          <label>💰 Cost</label>
-
-          <select
-            value={selectedCost}
-            onChange={(e) =>
-              setSelectedCost(e.target.value)
-            }
-          >
-            <option>All</option>
-            <option>Under ₹1000</option>
-            <option>₹1000 - ₹2000</option>
-            <option>Above ₹2000</option>
-          </select>
-        </div>
-
-        <button
-          className="clear-filter"
-          onClick={() => {
-            setSearch("");
-            setSelectedCity("All Cities");
-            setSelectedCategory("All");
-            setSelectedCost("All");
-          }}
-        >
-          Clear Filters
-        </button>
-
-      </section>
-
-      {/* CATEGORY BUTTONS */}
-      <section className="category-section">
-
-        <div className="category-title">
-          <h2>Browse by Category</h2>
-          <span>
-            {filteredActivities.length} activities found
-          </span>
-        </div>
-
-        <div className="category-buttons">
-
-          {categories.map((category) => (
-            <button
-              key={category}
-              className={
-                selectedCategory === category
-                  ? "category-btn selected"
-                  : "category-btn"
-              }
-              onClick={() =>
-                setSelectedCategory(category)
-              }
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
             >
-              {category === "Adventure" && "🏄 "}
-              {category === "Culture" && "🏛️ "}
-              {category === "Nature" && "🌿 "}
-              {category === "Sightseeing" && "📸 "}
-              {category === "Food" && "🍜 "}
-              {category === "Luxury" && "💎 "}
-              {category === "All" && "✨ "}
-              {category}
-            </button>
-          ))}
-
-        </div>
-      </section>
-
-      {/* ACTIVITY CARDS */}
-      <main className="activities-container">
-
-        <div className="activities-heading">
-          <div>
-            <h2>Recommended Activities</h2>
-            <p>
-              Choose activities that match your travel style.
-            </p>
+              <option>Recommended</option>
+              <option>Price Low</option>
+              <option>Price High</option>
+              <option>Duration</option>
+            </select>
           </div>
 
-          <span className="result-count">
-            {filteredActivities.length} Results
-          </span>
-        </div>
-
-        {filteredActivities.length > 0 ? (
-
-          <div className="activity-grid">
-
-            {filteredActivities.map((activity) => (
-
-              <div
-                className="activity-card"
-                key={activity.id}
+          <div className="category-bar">
+            {["All", "Adventure", "Culture", "Nature", "Food"].map((item) => (
+              <button
+                key={item}
+                className={
+                  category === item
+                    ? "category-btn active"
+                    : "category-btn"
+                }
+                onClick={() => setCategory(item)}
               >
+                {item === "All" && "✨"}
+                {item === "Adventure" && "🧗"}
+                {item === "Culture" && "🏛️"}
+                {item === "Nature" && "🌿"}
+                {item === "Food" && "🍽️"}
 
-                {/* IMAGE */}
-                <div className="activity-image-wrapper">
+                <span>{item}</span>
+              </button>
+            ))}
+          </div>
 
-                  <img
-                    src={activity.image}
-                    alt={activity.name}
-                  />
+          <div className="activity-results-header">
+            <div>
+              <span className="label">EXPERIENCES</span>
+              <h2>{filteredActivities.length} activities found</h2>
+            </div>
 
-                  <span className="activity-category">
-                    {activity.category}
-                  </span>
+            <span className="result-location">
+              📍 Explore destinations
+            </span>
+          </div>
 
-                  <button className="favorite-btn">
-                    ♡
-                  </button>
+          {filteredActivities.length > 0 ? (
+            <div className="activity-grid">
 
-                </div>
+              {filteredActivities.map((activity) => (
+                <article
+                  className="activity-card card"
+                  key={activity.id}
+                >
+                  <div className="activity-image">
 
-                {/* CONTENT */}
-                <div className="activity-content">
+                    <img
+                      src={activity.image}
+                      alt={activity.name}
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
 
-                  <div className="activity-location">
-                    📍 {activity.city}
-                  </div>
-
-                  <h3>{activity.name}</h3>
-
-                  <p className="activity-description">
-                    {activity.description}
-                  </p>
-
-                  <div className="activity-info">
-
-                    <span>
-                      ⭐ {activity.rating}
+                    <span className="activity-category">
+                      {activity.category}
                     </span>
 
-                    <span>
-                      ⏱️ {activity.duration}
-                    </span>
-
+                    <button
+                      className={
+                        favorites.includes(activity.id)
+                          ? "favorite-btn active"
+                          : "favorite-btn"
+                      }
+                      onClick={() => toggleFavorite(activity.id)}
+                    >
+                      {favorites.includes(activity.id) ? "♥" : "♡"}
+                    </button>
                   </div>
 
-                  <div className="activity-bottom">
+                  <div className="activity-card-body">
 
-                    <div>
-                      <small>Starting from</small>
+                    <div className="activity-title">
+                      <h3>{activity.name}</h3>
+                      <p>📍 {activity.city}</p>
+                    </div>
+
+                    <p className="activity-description">
+                      {activity.description}
+                    </p>
+
+                    <div className="activity-meta">
+                      <span>⏱ {activity.duration}</span>
 
                       <strong>
-                        ₹{activity.cost.toLocaleString()}
+                        {activity.price === 0
+                          ? "Free"
+                          : `₹${activity.price}`}
                       </strong>
                     </div>
 
                     <button
-                      className="add-itinerary-btn"
-                      onClick={() =>
-                        addToItinerary(activity)
-                      }
+                      className="btn activity-add-btn"
+                      onClick={() => addActivity(activity)}
                     >
-                      + Add
+                      + Add Activity
                     </button>
 
                   </div>
+                </article>
+              ))}
 
-                  <button
-                    className="details-btn"
-                    onClick={() =>
-                      viewDetails(activity)
-                    }
-                  >
-                    View Details →
-                  </button>
-
-                </div>
-
-              </div>
-
-            ))}
-
-          </div>
-
-        ) : (
-
-          <div className="no-activities">
-
-            <div className="no-icon">
-              🔍
             </div>
+          ) : (
+            <div className="activity-empty card">
+              <div>🔎</div>
 
-            <h2>No Activities Found</h2>
+              <h2>No activities found</h2>
 
-            <p>
-              Try changing your search or filters.
-            </p>
+              <p>
+                Try another activity name, destination or category.
+              </p>
 
-            <button
-              onClick={() => {
-                setSearch("");
-                setSelectedCity("All Cities");
-                setSelectedCategory("All");
-                setSelectedCost("All");
-              }}
-            >
-              Reset Filters
-            </button>
+              <button
+                className="btn"
+                onClick={() => {
+                  setSearch("");
+                  setCategory("All");
+                }}
+              >
+                Clear Filters
+              </button>
+            </div>
+          )}
 
+          <div className="activity-tip">
+            <div className="tip-icon">✨</div>
+
+            <div>
+              <span className="label">SMART TRAVEL TIP</span>
+
+              <h3>Choose experiences near each other</h3>
+
+              <p>
+                Group nearby activities in your itinerary to reduce travel
+                time and enjoy more of your destination.
+              </p>
+            </div>
           </div>
 
-        )}
-
+        </div>
       </main>
-
-      {/* FOOTER */}
-      <footer className="activity-footer">
-        <div>
-          <strong>✈ GlobeTrotter</strong>
-          <p>
-            Your personalized travel planning companion.
-          </p>
-        </div>
-
-        <div className="footer-links">
-          <span>Explore</span>
-          <span>My Trips</span>
-          <span>Privacy</span>
-          <span>Help</span>
-        </div>
-      </footer>
-
     </div>
   );
 }

@@ -1,250 +1,282 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 import "./MyTrips.css";
 
 function MyTrips() {
-  const navigate = useNavigate();
+  const [filter, setFilter] = useState("All");
 
   const trips = [
     {
       id: 1,
-      name: "Goa Adventure",
-      dates: "15 Dec - 20 Dec 2026",
-      destinations: "Goa • Panaji • Calangute",
-      status: "Upcoming",
-      image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2",
+      image:
+        "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=900&q=85",
+      name: "Jaipur Adventure",
+      location: "Jaipur, Rajasthan",
+      dates: "12 Jun – 16 Jun 2026",
+      travelers: "2 Travelers",
       budget: "₹25,000",
-      progress: "65%",
+      status: "Upcoming",
+      progress: 75,
     },
     {
       id: 2,
-      name: "Bali Escape",
-      dates: "10 Jan - 16 Jan 2027",
-      destinations: "Bali • Ubud • Kuta",
-      status: "Upcoming",
-      image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4",
-      budget: "₹45,000",
-      progress: "35%",
+      image:
+        "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=900&q=85",
+      name: "Goa Beach Trip",
+      location: "Goa, India",
+      dates: "20 May – 23 May 2026",
+      travelers: "3 Travelers",
+      budget: "₹18,000",
+      status: "Completed",
+      progress: 100,
     },
     {
       id: 3,
-      name: "Paris Memories",
-      dates: "12 Jun - 18 Jun 2026",
-      destinations: "Paris • Eiffel Tower • Louvre",
+      image:
+        "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=900&q=85",
+      name: "Manali Escape",
+      location: "Manali, Himachal Pradesh",
+      dates: "10 Apr – 15 Apr 2026",
+      travelers: "2 Travelers",
+      budget: "₹20,000",
       status: "Completed",
-      image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
-      budget: "₹80,000",
-      progress: "100%",
+      progress: 100,
+    },
+    {
+      id: 4,
+      image:
+        "https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=900&q=85",
+      name: "Udaipur Weekend",
+      location: "Udaipur, Rajasthan",
+      dates: "05 Mar – 07 Mar 2026",
+      travelers: "2 Travelers",
+      budget: "₹12,000",
+      status: "Completed",
+      progress: 100,
     },
   ];
 
+  const filteredTrips =
+    filter === "All"
+      ? trips
+      : trips.filter((trip) => trip.status === filter);
+
   return (
-    <div className="my-trips-page">
+    <div className="page">
+      <Navbar />
 
-      {/* Navbar */}
-      <nav className="my-trips-navbar">
+      <main className="my-trips-page">
+        <div className="container">
 
-        <div
-          className="my-trips-logo"
-          onClick={() => navigate("/dashboard")}
-        >
-          🌍 <span>GlobeTrotter</span>
-        </div>
-
-        <div className="my-trips-nav-links">
-          <button onClick={() => navigate("/dashboard")}>
-            Home
-          </button>
-
-          <button className="active">
-            My Trips
-          </button>
-
-          <button>
-            Explore
-          </button>
-
-          <button>
-            Budget
-          </button>
-        </div>
-
-        <div className="my-trips-profile">
-          <span>🔔</span>
-          <div className="profile-circle">K</div>
-          <span>Keyuri</span>
-        </div>
-
-      </nav>
-
-      {/* Main */}
-      <main className="my-trips-container">
-
-        <div className="my-trips-header">
-
-          <div>
-            <h1>My Trips ✈️</h1>
-            <p>
-              Manage your journeys and continue planning your adventures.
-            </p>
-          </div>
-
-          <button
-            className="new-trip-button"
-            onClick={() => navigate("/create-trip")}
-          >
-            + Create New Trip
-          </button>
-
-        </div>
-
-        {/* Filter */}
-        <div className="trip-filters">
-
-          <button className="filter active-filter">
-            All Trips
-          </button>
-
-          <button className="filter">
-            Upcoming
-          </button>
-
-          <button className="filter">
-            Completed
-          </button>
-
-        </div>
-
-        {/* Trip Cards */}
-        <div className="trips-grid">
-
-          {trips.map((trip) => (
-            <div className="trip-card" key={trip.id}>
-
-              <div className="trip-image-container">
-
-                <img
-                  src={`${trip.image}?auto=format&fit=crop&w=900&q=80`}
-                  alt={trip.name}
-                />
-
-                <span
-                  className={
-                    trip.status === "Completed"
-                      ? "trip-status completed"
-                      : "trip-status"
-                  }
-                >
-                  {trip.status}
-                </span>
-
-              </div>
-
-              <div className="trip-card-content">
-
-                <h2>{trip.name}</h2>
-
-                <p className="trip-date">
-                  📅 {trip.dates}
-                </p>
-
-                <p className="trip-destinations">
-                  📍 {trip.destinations}
-                </p>
-
-                <div className="trip-details">
-
-                  <div>
-                    <small>Budget</small>
-                    <strong>{trip.budget}</strong>
-                  </div>
-
-                  <div>
-                    <small>Planning</small>
-                    <strong>{trip.progress}</strong>
-                  </div>
-
-                </div>
-
-                <div className="planning-progress">
-                  <div
-                    className="progress-fill"
-                    style={{ width: trip.progress }}
-                  ></div>
-                </div>
-
-                <div className="trip-actions">
-
-                  <button
-                    className="view-trip"
-                    onClick={() => navigate("/itinerary")}
-                  >
-                    View Trip
-                  </button>
-
-                  <button
-                    className="edit-trip"
-                    onClick={() => navigate("/itinerary-builder")}
-                  >
-                    ✏️ Edit
-                  </button>
-
-                </div>
-
-              </div>
-
+          <div className="my-trips-header">
+            <div>
+              <span className="label">MY JOURNEYS</span>
+              <h1>My Trips</h1>
+              <p>
+                Manage your planned journeys and keep all your travel
+                plans in one place.
+              </p>
             </div>
-          ))}
 
-        </div>
-
-        {/* Empty / Future Section */}
-        <div className="trip-bottom-card">
-
-          <div className="bottom-icon">🌎</div>
-
-          <div>
-            <h3>Ready for your next adventure?</h3>
-            <p>
-              Create another trip and start discovering new destinations.
-            </p>
+            <Link to="/create-trip" className="btn">
+              + Create New Trip
+            </Link>
           </div>
 
-          <button
-            onClick={() => navigate("/create-trip")}
-          >
-            Plan a Trip
-          </button>
+          <div className="trip-summary-row">
+
+            <div className="summary-box card">
+              <span className="summary-icon">🗺️</span>
+              <div>
+                <strong>4</strong>
+                <small>Total Trips</small>
+              </div>
+            </div>
+
+            <div className="summary-box card">
+              <span className="summary-icon">✈️</span>
+              <div>
+                <strong>1</strong>
+                <small>Upcoming</small>
+              </div>
+            </div>
+
+            <div className="summary-box card">
+              <span className="summary-icon">✓</span>
+              <div>
+                <strong>3</strong>
+                <small>Completed</small>
+              </div>
+            </div>
+
+            <div className="summary-box card">
+              <span className="summary-icon">💰</span>
+              <div>
+                <strong>₹75K</strong>
+                <small>Total Budget</small>
+              </div>
+            </div>
+
+          </div>
+
+          <div className="trip-controls card">
+
+            <div className="control-title">
+              <span className="label">TRIP COLLECTION</span>
+              <h2>Your Travel Plans</h2>
+            </div>
+
+            <div className="filter-buttons">
+              {["All", "Upcoming", "Completed"].map((item) => (
+                <button
+                  key={item}
+                  className={
+                    filter === item
+                      ? "filter-btn active"
+                      : "filter-btn"
+                  }
+                  onClick={() => setFilter(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
+          </div>
+
+          <div className="trips-grid">
+
+            {filteredTrips.map((trip) => (
+              <article className="trip-card card" key={trip.id}>
+
+                <div className="trip-card-image">
+
+                  <img src={trip.image} alt={trip.name} />
+
+                  <span
+                    className={
+                      trip.status === "Upcoming"
+                        ? "card-status upcoming"
+                        : "card-status completed"
+                    }
+                  >
+                    {trip.status}
+                  </span>
+
+                </div>
+
+                <div className="trip-card-body">
+
+                  <div className="trip-card-title">
+                    <div>
+                      <h2>{trip.name}</h2>
+                      <p>📍 {trip.location}</p>
+                    </div>
+
+                    <button className="more-button">
+                      ⋮
+                    </button>
+                  </div>
+
+                  <div className="trip-card-details">
+
+                    <div>
+                      <span>📅</span>
+                      <div>
+                        <small>DATES</small>
+                        <strong>{trip.dates}</strong>
+                      </div>
+                    </div>
+
+                    <div>
+                      <span>👥</span>
+                      <div>
+                        <small>TRAVELERS</small>
+                        <strong>{trip.travelers}</strong>
+                      </div>
+                    </div>
+
+                    <div>
+                      <span>💰</span>
+                      <div>
+                        <small>BUDGET</small>
+                        <strong>{trip.budget}</strong>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div className="trip-card-progress">
+
+                    <div className="progress-heading">
+                      <span>Planning Progress</span>
+                      <strong>{trip.progress}%</strong>
+                    </div>
+
+                    <div className="progress-track">
+                      <div
+                        className="progress-value"
+                        style={{ width: `${trip.progress}%` }}
+                      ></div>
+                    </div>
+
+                  </div>
+
+                  <div className="trip-card-actions">
+
+                    <Link to="/itinerary" className="btn">
+                      View Itinerary
+                    </Link>
+
+                    <Link
+                      to="/itinerary-builder"
+                      className="btn secondary"
+                    >
+                      Edit
+                    </Link>
+
+                  </div>
+
+                </div>
+
+              </article>
+            ))}
+
+          </div>
+
+          {filteredTrips.length === 0 && (
+            <div className="empty-trips card">
+              <div>🗺️</div>
+              <h2>No trips found</h2>
+              <p>
+                There are no trips in this category yet.
+              </p>
+              <Link to="/create-trip" className="btn">
+                Create Your First Trip
+              </Link>
+            </div>
+          )}
+
+          <div className="my-trips-tip">
+
+            <div className="tip-icon">
+              💡
+            </div>
+
+            <div>
+              <span className="label">TRAVEL TIP</span>
+              <h3>Keep your itinerary flexible</h3>
+              <p>
+                Leave some free time in your travel plan so you can
+                explore unexpected places and experiences.
+              </p>
+            </div>
+
+          </div>
 
         </div>
-
       </main>
-
-      {/* Mobile Bottom Navigation */}
-      <div className="mobile-trip-nav">
-
-        <button onClick={() => navigate("/dashboard")}>
-          🏠
-          <span>Home</span>
-        </button>
-
-        <button className="mobile-active">
-          🧳
-          <span>Trips</span>
-        </button>
-
-        <button>
-          🔎
-          <span>Explore</span>
-        </button>
-
-        <button>
-          👤
-          <span>Profile</span>
-        </button>
-
-      </div>
-
     </div>
   );
 }

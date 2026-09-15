@@ -1,75 +1,24 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./LoginScreen.css";
 
 function LoginScreen() {
   const navigate = useNavigate();
 
-  const [isSignup, setIsSignup] = useState(false);
-
-  // Login states
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
-
-  // Signup states
-  const [name, setName] = useState("");
-  const [signupEmail, setSignupEmail] = useState("");
-  const [signupPassword, setSignupPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [language, setLanguage] = useState("English");
-  const [terms, setTerms] = useState(false);
-
-  // =========================
-  // LOGIN
-  // =========================
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (!loginEmail || !loginPassword) {
-      alert("Please enter email and password.");
+    setError("");
+
+    if (email.trim() === "" || password.trim() === "") {
+      setError("Please enter your email and password.");
       return;
     }
-
-    alert("Login successful!");
-
-    navigate("/dashboard");
-  };
-
-  // =========================
-  // SIGNUP
-  // =========================
-
-  const handleSignup = (e) => {
-    e.preventDefault();
-
-    if (
-      !name ||
-      !signupEmail ||
-      !signupPassword ||
-      !confirmPassword
-    ) {
-      alert("Please fill all required fields.");
-      return;
-    }
-
-    if (signupPassword.length < 6) {
-      alert("Password must be at least 6 characters.");
-      return;
-    }
-
-    if (signupPassword !== confirmPassword) {
-      alert("Passwords do not match.");
-      return;
-    }
-
-    if (!terms) {
-      alert("Please accept Terms & Conditions.");
-      return;
-    }
-
-    alert("Account created successfully!");
 
     navigate("/dashboard");
   };
@@ -77,443 +26,252 @@ function LoginScreen() {
   return (
     <div className="login-page">
 
-      {/* ==================================
-          LEFT SIDE
-      ================================== */}
-
+      {/* LEFT BLUE SECTION */}
       <div className="login-left">
+
+        <div className="login-brand">
+          <div className="login-brand-icon">🌍</div>
+
+          <div>
+            <h1>GlobeTrotter</h1>
+            <p>Personalized Travel Planning</p>
+          </div>
+        </div>
+
 
         <div className="login-left-content">
 
-          <div className="login-logo">
-            🌍 GlobeTrotter
-          </div>
+          <span className="login-small-title">
+            PLAN • EXPLORE • TRAVEL
+          </span>
 
-          <h1>
+          <h2>
             Your journey,
             <br />
             your way.
-          </h1>
+          </h2>
 
-          <p className="login-description">
-            Plan unforgettable trips, discover amazing
-            destinations and create personalized travel
-            experiences with GlobeTrotter.
+          <p>
+            Discover amazing destinations, create personalized
+            itineraries and manage every part of your trip in one place.
           </p>
+
 
           <div className="login-features">
 
             <div className="login-feature">
-
-              <div className="feature-icon">
-                🗺️
-              </div>
-
+              <span>🗺️</span>
               <div>
-                <h3>Personalized Trips</h3>
-
-                <p>
-                  Create trips based on your interests,
-                  budget and travel style.
-                </p>
+                <strong>Personalized Trips</strong>
+                <small>Create trips based on your preferences.</small>
               </div>
-
             </div>
 
+
             <div className="login-feature">
-
-              <div className="feature-icon">
-                💰
-              </div>
-
+              <span>📅</span>
               <div>
-                <h3>Smart Budget Planning</h3>
-
-                <p>
-                  Track your travel expenses and manage
-                  your budget easily.
-                </p>
+                <strong>Smart Itinerary</strong>
+                <small>Organize your travel plans easily.</small>
               </div>
-
             </div>
 
+
             <div className="login-feature">
-
-              <div className="feature-icon">
-                ✨
-              </div>
-
+              <span>💰</span>
               <div>
-                <h3>Discover More</h3>
-
-                <p>
-                  Find destinations and activities that
-                  match your travel interests.
-                </p>
+                <strong>Budget Planning</strong>
+                <small>Keep your travel expenses under control.</small>
               </div>
-
             </div>
 
           </div>
 
         </div>
 
+
+        <div className="login-left-footer">
+          <span>✈️</span>
+          <span>Make every journey memorable.</span>
+        </div>
+
       </div>
 
 
-      {/* ==================================
-          RIGHT SIDE
-      ================================== */}
-
+      {/* RIGHT LOGIN SECTION */}
       <div className="login-right">
 
         <div className="login-card">
 
-          {/* ==================================
-              LOGIN FORM
-          ================================== */}
+          <div className="login-card-header">
 
-          {!isSignup && (
+            <div className="login-mobile-logo">
+              🌍
+            </div>
 
-            <>
+            <h2>Welcome Back!</h2>
 
-              <h2 className="login-title">
-                Welcome Back
-              </h2>
+            <p>
+              Sign in to continue planning your next adventure.
+            </p>
 
-              <p className="login-subtitle">
-                Login to continue your travel journey.
-              </p>
-
-              <form onSubmit={handleLogin}>
-
-                {/* EMAIL */}
-
-                <div className="form-group">
-
-                  <label>
-                    Email Address
-                  </label>
-
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={loginEmail}
-                    onChange={(e) =>
-                      setLoginEmail(e.target.value)
-                    }
-                  />
-
-                </div>
+          </div>
 
 
-                {/* PASSWORD */}
+          <form onSubmit={handleLogin}>
 
-                <div className="form-group">
+            {/* EMAIL */}
+            <div className="login-form-group">
 
-                  <label>
-                    Password
-                  </label>
+              <label htmlFor="email">
+                Email Address
+              </label>
 
-                  <input
-                    type="password"
-                    placeholder="Enter your password"
-                    value={loginPassword}
-                    onChange={(e) =>
-                      setLoginPassword(e.target.value)
-                    }
-                  />
+              <div className="login-input-wrapper">
 
-                </div>
-
-
-                {/* REMEMBER + FORGOT */}
-
-                <div className="login-options">
-
-                  <label className="remember-me">
-
-                    <input
-                      type="checkbox"
-                      checked={rememberMe}
-                      onChange={(e) =>
-                        setRememberMe(e.target.checked)
-                      }
-                    />
-
-                    <span>
-                      Remember me
-                    </span>
-
-                  </label>
-
-                  <button
-                    type="button"
-                    className="forgot-password"
-                    onClick={() =>
-                      alert(
-                        "Password reset feature will be added later."
-                      )
-                    }
-                  >
-                    Forgot Password?
-                  </button>
-
-                </div>
-
-
-                {/* LOGIN BUTTON */}
-
-                <button
-                  type="submit"
-                  className="login-button"
-                >
-                  Login
-                </button>
-
-              </form>
-
-
-              {/* DIVIDER */}
-
-              <div className="login-divider">
-
-                <span>
-                  OR
+                <span className="login-input-icon">
+                  ✉️
                 </span>
+
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
 
               </div>
 
-
-              {/* DEMO ACCOUNT */}
-
-              <div className="demo-account">
-
-                <strong>
-                  Demo Account
-                </strong>
-
-                <p>
-                  Email: demo@globetrotter.com
-                </p>
-
-                <p>
-                  Password: 123456
-                </p>
-
-              </div>
+            </div>
 
 
-              {/* SIGNUP */}
+            {/* PASSWORD */}
+            <div className="login-form-group">
 
-              <div className="login-signup">
+              <div className="password-label-row">
 
-                <span>
-                  Don't have an account?
-                </span>
+                <label htmlFor="password">
+                  Password
+                </label>
 
                 <button
                   type="button"
-                  onClick={() => setIsSignup(true)}
+                  className="forgot-password"
+                  onClick={() =>
+                    setError("Password reset feature will be available soon.")
+                  }
                 >
-                  Sign Up
+                  Forgot Password?
                 </button>
 
               </div>
 
-            </>
 
-          )}
+              <div className="login-input-wrapper">
 
-
-          {/* ==================================
-              SIGNUP FORM
-          ================================== */}
-
-          {isSignup && (
-
-            <>
-
-              <h2 className="login-title">
-                Create Account
-              </h2>
-
-              <p className="login-subtitle">
-                Create your GlobeTrotter account.
-              </p>
-
-              <form onSubmit={handleSignup}>
-
-                {/* NAME */}
-
-                <div className="form-group">
-
-                  <label>
-                    Full Name
-                  </label>
-
-                  <input
-                    type="text"
-                    placeholder="Enter your full name"
-                    value={name}
-                    onChange={(e) =>
-                      setName(e.target.value)
-                    }
-                  />
-
-                </div>
-
-
-                {/* EMAIL */}
-
-                <div className="form-group">
-
-                  <label>
-                    Email Address
-                  </label>
-
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={signupEmail}
-                    onChange={(e) =>
-                      setSignupEmail(e.target.value)
-                    }
-                  />
-
-                </div>
-
-
-                {/* PASSWORD */}
-
-                <div className="form-group">
-
-                  <label>
-                    Password
-                  </label>
-
-                  <input
-                    type="password"
-                    placeholder="Create a password"
-                    value={signupPassword}
-                    onChange={(e) =>
-                      setSignupPassword(e.target.value)
-                    }
-                  />
-
-                </div>
-
-
-                {/* CONFIRM PASSWORD */}
-
-                <div className="form-group">
-
-                  <label>
-                    Confirm Password
-                  </label>
-
-                  <input
-                    type="password"
-                    placeholder="Confirm your password"
-                    value={confirmPassword}
-                    onChange={(e) =>
-                      setConfirmPassword(e.target.value)
-                    }
-                  />
-
-                </div>
-
-
-                {/* LANGUAGE */}
-
-                <div className="form-group">
-
-                  <label>
-                    Preferred Language
-                  </label>
-
-                  <select
-                    value={language}
-                    onChange={(e) =>
-                      setLanguage(e.target.value)
-                    }
-                  >
-
-                    <option value="English">
-                      English
-                    </option>
-
-                    <option value="Gujarati">
-                      Gujarati
-                    </option>
-
-                    <option value="Hindi">
-                      Hindi
-                    </option>
-
-                  </select>
-
-                </div>
-
-
-                {/* TERMS */}
-
-                <div className="signup-terms">
-
-                  <input
-                    type="checkbox"
-                    id="terms"
-                    checked={terms}
-                    onChange={(e) =>
-                      setTerms(e.target.checked)
-                    }
-                  />
-
-                  <label htmlFor="terms">
-
-                    I agree to the{" "}
-
-                    <span>
-                      Terms & Conditions
-                    </span>
-
-                  </label>
-
-                </div>
-
-
-                {/* SIGNUP BUTTON */}
-
-                <button
-                  type="submit"
-                  className="login-button"
-                >
-                  Create Account
-                </button>
-
-              </form>
-
-
-              {/* BACK TO LOGIN */}
-
-              <div className="login-signup">
-
-                <span>
-                  Already have an account?
+                <span className="login-input-icon">
+                  🔒
                 </span>
+
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
 
                 <button
                   type="button"
-                  onClick={() => setIsSignup(false)}
+                  className="show-password"
+                  onClick={() =>
+                    setShowPassword(!showPassword)
+                  }
+                  aria-label="Show or hide password"
                 >
-                  Login
+                  {showPassword ? "🙈" : "👁️"}
                 </button>
 
               </div>
 
-            </>
+            </div>
 
-          )}
+
+            {/* REMEMBER */}
+            <div className="login-options">
+
+              <label className="remember-me">
+
+                <input type="checkbox" />
+
+                <span>
+                  Remember me
+                </span>
+
+              </label>
+
+            </div>
+
+
+            {/* ERROR */}
+            {error && (
+              <div className="login-error">
+                {error}
+              </div>
+            )}
+
+
+            {/* LOGIN BUTTON */}
+            <button
+              type="submit"
+              className="login-button"
+            >
+              Sign In
+            </button>
+
+          </form>
+
+
+          {/* DIVIDER */}
+          <div className="login-divider">
+
+            <span></span>
+
+            <p>OR</p>
+
+            <span></span>
+
+          </div>
+
+
+          {/* GUEST */}
+          <button
+            type="button"
+            className="guest-button"
+            onClick={() => navigate("/dashboard")}
+          >
+            Continue as Guest
+          </button>
+
+
+          {/* SIGN UP */}
+          <div className="signup-section">
+
+            <p>
+              Don't have an account?
+            </p>
+
+            <Link to="/dashboard">
+              Create an Account
+            </Link>
+
+          </div>
+
+
+          <div className="login-security">
+            🔐 Your information is kept secure.
+          </div>
 
         </div>
 

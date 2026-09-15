@@ -1,420 +1,285 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 import "./CitySearch.css";
 
 function CitySearch() {
-  const navigate = useNavigate();
-
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All");
+  const [sort, setSort] = useState("Recommended");
 
   const cities = [
     {
+      id: 1,
+      name: "Jaipur",
+      country: "India",
+      budget: "₹15,000 - ₹25,000",
+      duration: "3-5 Days",
+      bestTime: "Oct - Mar",
+      image:
+        "https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1000&q=85"
+    },
+    {
+      id: 2,
       name: "Goa",
       country: "India",
-      category: "Beach",
-      rating: "4.8",
-      cost: "₹2,500/day",
+      budget: "₹12,000 - ₹22,000",
+      duration: "3-5 Days",
+      bestTime: "Nov - Feb",
       image:
-        "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=900&q=80"
+        "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1000&q=85"
     },
     {
-      name: "Bali",
-      country: "Indonesia",
-      category: "Beach",
-      rating: "4.9",
-      cost: "₹4,000/day",
+      id: 3,
+      name: "Manali",
+      country: "India",
+      budget: "₹14,000 - ₹24,000",
+      duration: "4-6 Days",
+      bestTime: "Oct - Jun",
       image:
-        "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=900&q=80"
+        "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1000&q=85"
     },
     {
-      name: "Paris",
-      country: "France",
-      category: "Culture",
-      rating: "4.7",
-      cost: "₹9,500/day",
+      id: 4,
+      name: "Udaipur",
+      country: "India",
+      budget: "₹13,000 - ₹23,000",
+      duration: "2-4 Days",
+      bestTime: "Oct - Mar",
       image:
-        "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80"
+        "https://images.unsplash.com/photo-1603262110263-fb0112e7cc33?auto=format&fit=crop&w=1000&q=85"
     },
     {
-      name: "Dubai",
-      country: "UAE",
-      category: "Luxury",
-      rating: "4.8",
-      cost: "₹7,000/day",
+      id: 5,
+      name: "Kerala",
+      country: "India",
+      budget: "₹18,000 - ₹30,000",
+      duration: "5-7 Days",
+      bestTime: "Sep - Mar",
       image:
-        "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=80"
+        "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1000&q=85"
     },
     {
-      name: "Tokyo",
-      country: "Japan",
-      category: "Culture",
-      rating: "4.8",
-      cost: "₹8,000/day",
+      id: 6,
+      name: "Delhi",
+      country: "India",
+      budget: "₹10,000 - ₹20,000",
+      duration: "2-4 Days",
+      bestTime: "Oct - Mar",
       image:
-        "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=900&q=80"
-    },
-    {
-      name: "London",
-      country: "United Kingdom",
-      category: "Culture",
-      rating: "4.7",
-      cost: "₹9,000/day",
-      image:
-        "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80"
-    },
-    {
-      name: "Singapore",
-      country: "Singapore",
-      category: "Luxury",
-      rating: "4.8",
-      cost: "₹6,500/day",
-      image:
-        "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=900&q=80"
-    },
-    {
-      name: "Maldives",
-      country: "Maldives",
-      category: "Beach",
-      rating: "4.9",
-      cost: "₹10,000/day",
-      image:
-        "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=900&q=80"
+        "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1000&q=85"
     }
   ];
 
-  const categories = [
-    "All",
-    "Beach",
-    "Nature",
-    "Culture",
-    "Luxury"
-  ];
+  const filteredCities = cities
+    .filter((city) =>
+      `${city.name} ${city.country}`
+        .toLowerCase()
+        .includes(search.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sort === "Name A-Z") {
+        return a.name.localeCompare(b.name);
+      }
 
-  const filteredCities = cities.filter((city) => {
-    const searchText = search.toLowerCase();
-
-    const matchesSearch =
-      city.name.toLowerCase().includes(searchText) ||
-      city.country.toLowerCase().includes(searchText);
-
-    const matchesCategory =
-      category === "All" || city.category === category;
-
-    return matchesSearch && matchesCategory;
-  });
-
-  const handleAddToTrip = (cityName) => {
-    alert(`${cityName} selected! Add this destination to your trip.`);
-    navigate("/itinerary-builder");
-  };
+      return 0;
+    });
 
   return (
-    <div className="explore-page">
-
-      {/* ================= NAVBAR ================= */}
-
-      <nav className="explore-navbar">
-
-        <div
-          className="explore-logo"
-          onClick={() => navigate("/dashboard")}
-        >
-          🌍 GlobeTrotter
-        </div>
-
-        <div className="explore-nav-links">
-
-          <button onClick={() => navigate("/dashboard")}>
-            Home
-          </button>
-
-          <button onClick={() => navigate("/my-trips")}>
-            My Trips
-          </button>
-
-          <button className="active">
-            Explore
-          </button>
-
-        </div>
-
-        <div className="explore-profile">
-
-          <div className="profile-avatar">
-            K
-          </div>
-
-          <span>Keyuri</span>
-
-        </div>
-
-      </nav>
-
-
-      {/* ================= MAIN ================= */}
-
-      <main className="explore-container">
-
-        {/* HEADER */}
-
-        <section className="explore-header">
-
-          <button
-            className="back-dashboard"
-            onClick={() => navigate("/dashboard")}
-          >
-            ← Back to Dashboard
-          </button>
-
-          <h1>Explore Cities 🌎</h1>
-
-          <p>
-            Discover beautiful destinations and plan your next adventure.
-          </p>
-
-        </section>
-
-
-        {/* ================= SEARCH ================= */}
-
-        <section className="explore-search-section">
-
-          <div className="explore-search-box">
-
-            <span className="search-symbol">
-              🔍
-            </span>
-
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search city or country..."
-            />
-
-            {search && (
-              <button
-                className="clear-search"
-                onClick={() => setSearch("")}
-              >
-                ✕
-              </button>
-            )}
-
-          </div>
-
-        </section>
-
-
-        {/* ================= FILTERS ================= */}
-
-        <section className="filter-section">
-
-          <div className="filter-title">
-            Explore by category
-          </div>
-
-          <div className="filter-buttons">
-
-            {categories.map((item) => (
-
-              <button
-                key={item}
-                className={
-                  category === item
-                    ? "filter-button selected"
-                    : "filter-button"
-                }
-                onClick={() => setCategory(item)}
-              >
-                {item === "All" && "🌎 "}
-                {item === "Beach" && "🏖️ "}
-                {item === "Nature" && "🌿 "}
-                {item === "Culture" && "🏛️ "}
-                {item === "Luxury" && "✨ "}
-
-                {item}
-              </button>
-
-            ))}
-
-          </div>
-
-        </section>
-
-
-        {/* ================= RESULT HEADER ================= */}
-
-        <section className="destination-heading">
-
-          <div>
-            <h2>Popular Destinations</h2>
-
-            <p>
-              {filteredCities.length} destinations found
-            </p>
-          </div>
-
-          <button
-            className="smart-button"
-            onClick={() =>
-              alert(
-                "Smart Recommendations will suggest destinations according to your interests, budget and travel style."
-              )
-            }
-          >
-            ✨ Smart Recommendations
-          </button>
-
-        </section>
-
-
-        {/* ================= CITY CARDS ================= */}
-
-        {filteredCities.length > 0 ? (
-
-          <section className="city-grid">
-
-            {filteredCities.map((city) => (
-
-              <article
-                className="city-card"
-                key={city.name}
-              >
-
-                {/* IMAGE */}
-
-                <div
-                  className="city-card-image"
-                  style={{
-                    backgroundImage: `url("${city.image}")`
-                  }}
-                >
-
-                  <span className="city-category">
-                    {city.category}
-                  </span>
-
-                  <button
-                    className="favorite-button"
-                    onClick={() =>
-                      alert(`${city.name} added to favorites ❤️`)
-                    }
-                  >
-                    ♡
-                  </button>
-
-                </div>
-
-
-                {/* CONTENT */}
-
-                <div className="city-card-content">
-
-                  <div className="city-title-row">
-
-                    <div>
-
-                      <h3>
-                        {city.name}
-                      </h3>
-
-                      <p>
-                        📍 {city.country}
-                      </p>
-
-                    </div>
-
-                    <div className="city-rating">
-                      ⭐ {city.rating}
-                    </div>
-
-                  </div>
-
-
-                  <div className="city-details">
-
-                    <div>
-                      <span>💰</span>
-                      <span>
-                        {city.cost}
-                      </span>
-                    </div>
-
-                    <div>
-                      <span>🌍</span>
-                      <span>
-                        Popular
-                      </span>
-                    </div>
-
-                  </div>
-
-
-                  <div className="city-card-buttons">
-
-                    <button
-                      className="details-btn"
-                      onClick={() =>
-                        alert(
-                          `${city.name}\n\nCountry: ${city.country}\nRating: ${city.rating}\nEstimated Cost: ${city.cost}`
-                        )
-                      }
-                    >
-                      View Details
-                    </button>
-
-                    <button
-                      className="add-trip-btn"
-                      onClick={() =>
-                        handleAddToTrip(city.name)
-                      }
-                    >
-                      + Add to Trip
-                    </button>
-
-                  </div>
-
-                </div>
-
-              </article>
-
-            ))}
-
-          </section>
-
-        ) : (
-
-          <div className="no-results">
-
-            <div className="no-results-icon">
-              🔎
+    <div className="page">
+      <Navbar />
+
+      <main className="city-search-page">
+        <div className="container">
+
+          <div className="city-header">
+            <div>
+              <span className="label">EXPLORE THE WORLD</span>
+              <h1>Find Your Next Destination</h1>
+              <p>
+                Discover beautiful destinations and start planning your next adventure.
+              </p>
             </div>
 
-            <h2>
-              No destinations found
-            </h2>
+            <Link to="/create-trip" className="btn">
+              + Plan New Trip
+            </Link>
+          </div>
 
-            <p>
-              Try searching for another city or country.
-            </p>
+          <div className="city-search-box card">
+            <div className="city-search-input">
+              <span>🔍</span>
 
-            <button
-              onClick={() => {
-                setSearch("");
-                setCategory("All");
-              }}
+              <input
+                type="text"
+                placeholder="Search destinations..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+
+              {search && (
+                <button onClick={() => setSearch("")}>
+                  ×
+                </button>
+              )}
+            </div>
+
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
             >
-              Clear Filters
-            </button>
+              <option>Recommended</option>
+              <option>Name A-Z</option>
+            </select>
+          </div>
+
+          <div className="city-results-header">
+            <div>
+              <span className="label">DESTINATIONS</span>
+              <h2>{filteredCities.length} destinations found</h2>
+            </div>
+
+            <span className="city-result-note">
+              📍 Explore popular places
+            </span>
+          </div>
+
+          {filteredCities.length > 0 ? (
+            <div className="city-grid">
+
+              {filteredCities.map((city) => (
+                <article className="city-card card" key={city.id}>
+
+                  <div className="city-image">
+
+                    <img
+                      src={city.image}
+                      alt={`${city.name} destination`}
+                      loading="eager"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                        e.currentTarget.parentElement.classList.add(
+                          "image-fallback"
+                        );
+                      }}
+                    />
+
+                    <div className="city-image-overlay"></div>
+
+                    <div className="city-location">
+                      📍 {city.name}, {city.country}
+                    </div>
+
+                    <span className="city-badge">
+                      Popular
+                    </span>
+
+                  </div>
+
+                  <div className="city-card-body">
+
+                    <div className="city-title-row">
+                      <div>
+                        <h3>{city.name}</h3>
+                        <p>{city.country}</p>
+                      </div>
+
+                      <span className="city-icon">
+                        🌍
+                      </span>
+                    </div>
+
+                    <div className="city-info-grid">
+
+                      <div>
+                        <span>💰</span>
+                        <div>
+                          <small>Budget</small>
+                          <strong>{city.budget}</strong>
+                        </div>
+                      </div>
+
+                      <div>
+                        <span>📅</span>
+                        <div>
+                          <small>Duration</small>
+                          <strong>{city.duration}</strong>
+                        </div>
+                      </div>
+
+                      <div>
+                        <span>☀️</span>
+                        <div>
+                          <small>Best Time</small>
+                          <strong>{city.bestTime}</strong>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div className="city-actions">
+                      <Link
+                        to="/itinerary"
+                        className="btn secondary"
+                      >
+                        View Details
+                      </Link>
+
+                      <Link
+                        to="/create-trip"
+                        className="btn"
+                      >
+                        Plan Trip →
+                      </Link>
+                    </div>
+
+                  </div>
+
+                </article>
+              ))}
+
+            </div>
+          ) : (
+            <div className="city-empty card">
+              <div>🔎</div>
+              <h2>No destinations found</h2>
+              <p>
+                Try searching for another city or destination.
+              </p>
+
+              <button
+                className="btn"
+                onClick={() => setSearch("")}
+              >
+                Clear Search
+              </button>
+            </div>
+          )}
+
+          <div className="city-tip">
+
+            <div className="tip-icon">
+              ✨
+            </div>
+
+            <div>
+              <span className="label">
+                SMART TRAVEL TIP
+              </span>
+
+              <h3>
+                Plan around the best travel season
+              </h3>
+
+              <p>
+                Choosing the right season can make your trip more
+                comfortable and help you enjoy more experiences.
+              </p>
+            </div>
 
           </div>
 
-        )}
-
+        </div>
       </main>
-
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 import "./ItineraryBuilder.css";
 
 function ItineraryBuilder() {
@@ -7,84 +8,26 @@ function ItineraryBuilder() {
 
   const [selectedDay, setSelectedDay] = useState(1);
 
-  const [days, setDays] = useState([
+  const [activities, setActivities] = useState([
     {
-      day: 1,
-      date: "15 Dec 2026",
-      city: "Goa",
-      activities: [
-        {
-          id: 1,
-          time: "09:00 AM",
-          title: "Visit Baga Beach",
-          category: "Beach",
-          duration: "2 hours",
-        },
-        {
-          id: 2,
-          time: "01:00 PM",
-          title: "Lunch at Beach Cafe",
-          category: "Food",
-          duration: "1 hour",
-        },
-        {
-          id: 3,
-          time: "04:00 PM",
-          title: "Water Sports",
-          category: "Adventure",
-          duration: "2 hours",
-        },
-      ],
-    },
-    {
-      day: 2,
-      date: "16 Dec 2026",
-      city: "Panaji",
-      activities: [
-        {
-          id: 4,
-          time: "10:00 AM",
-          title: "Explore Panaji",
-          category: "Sightseeing",
-          duration: "2 hours",
-        },
-        {
-          id: 5,
-          time: "06:00 PM",
-          title: "Night Market",
-          category: "Shopping",
-          duration: "2 hours",
-        },
-      ],
-    },
-    {
-      day: 3,
-      date: "17 Dec 2026",
-      city: "Calangute",
-      activities: [
-        {
-          id: 6,
-          time: "09:30 AM",
-          title: "Calangute Beach",
-          category: "Beach",
-          duration: "2 hours",
-        },
-      ],
+      id: 1,
+      time: "09:00 AM",
+      activity: "Breakfast & Hotel Check-in",
+      location: "Jaipur Hotel",
+      duration: "1 hour",
     },
   ]);
 
-  const [newActivity, setNewActivity] = useState({
+  const [form, setForm] = useState({
     time: "",
-    title: "",
-    category: "Sightseeing",
+    activity: "",
+    location: "",
     duration: "",
   });
 
-  const currentDay = days.find((day) => day.day === selectedDay);
-
-  const handleActivityChange = (e) => {
-    setNewActivity({
-      ...newActivity,
+  const handleChange = (e) => {
+    setForm({
+      ...form,
       [e.target.name]: e.target.value,
     });
   };
@@ -92,382 +35,318 @@ function ItineraryBuilder() {
   const addActivity = (e) => {
     e.preventDefault();
 
-    if (!newActivity.time || !newActivity.title) {
-      alert("Please enter activity time and title.");
+    if (!form.time || !form.activity || !form.location) {
+      alert("Please fill Time, Activity and Location.");
       return;
     }
 
-    const activity = {
-      id: Date.now(),
-      ...newActivity,
-    };
-
-    setDays(
-      days.map((day) =>
-        day.day === selectedDay
-          ? {
-              ...day,
-              activities: [...day.activities, activity],
-            }
-          : day
-      )
-    );
-
-    setNewActivity({
-      time: "",
-      title: "",
-      category: "Sightseeing",
-      duration: "",
+    const formattedTime = new Date(
+      `1970-01-01T${form.time}`
+    ).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
     });
 
-    alert("Activity added successfully!");
+    const newActivity = {
+      id: Date.now(),
+      time: formattedTime,
+      activity: form.activity,
+      location: form.location,
+      duration: form.duration || "1 hour",
+    };
+
+    setActivities([...activities, newActivity]);
+
+    setForm({
+      time: "",
+      activity: "",
+      location: "",
+      duration: "",
+    });
   };
 
-  const removeActivity = (activityId) => {
-    setDays(
-      days.map((day) =>
-        day.day === selectedDay
-          ? {
-              ...day,
-              activities: day.activities.filter(
-                (activity) => activity.id !== activityId
-              ),
-            }
-          : day
-      )
+  const removeActivity = (id) => {
+    setActivities(
+      activities.filter((activity) => activity.id !== id)
     );
+  };
+
+  const saveItinerary = () => {
+    alert("Your itinerary has been saved successfully!");
+    navigate("/itinerary");
   };
 
   return (
-    <div className="itinerary-builder-page">
+    <div className="page">
+      <Navbar />
 
-      {/* Navbar */}
-      <nav className="itinerary-navbar">
+      <main className="itinerary-builder">
+        <div className="container">
 
-        <div
-          className="itinerary-logo"
-          onClick={() => navigate("/dashboard")}
-        >
-          🌍 <span>GlobeTrotter</span>
-        </div>
-
-        <div className="itinerary-nav-links">
-
-          <button onClick={() => navigate("/dashboard")}>
-            Home
-          </button>
-
-          <button onClick={() => navigate("/my-trips")}>
-            My Trips
-          </button>
-
-          <button>
-            Explore
-          </button>
-
-          <button>
-            Budget
-          </button>
-
-        </div>
-
-        <div className="itinerary-profile">
-          <span>🔔</span>
-          <div className="profile-circle">K</div>
-          <span>Keyuri</span>
-        </div>
-
-      </nav>
-
-      {/* Main */}
-      <main className="itinerary-container">
-
-        {/* Header */}
-        <div className="itinerary-header">
-
-          <div>
-            <button
-              className="back-itinerary"
-              onClick={() => navigate("/my-trips")}
-            >
-              ← My Trips
-            </button>
-
-            <h1>Goa Adventure ✈️</h1>
-
-            <p>
-              15 Dec - 20 Dec 2026 • 3 Destinations
-            </p>
-          </div>
-
-          <div className="header-actions">
-
-            <button
-              className="budget-button"
-              onClick={() => navigate("/budget")}
-            >
-              💰 Budget
-            </button>
-
-            <button
-              className="save-button"
-              onClick={() => alert("Itinerary saved successfully!")}
-            >
-              Save Trip
-            </button>
-
-          </div>
-
-        </div>
-
-        {/* Progress */}
-        <div className="trip-progress-card">
-
-          <div className="progress-top">
-
+          <div className="builder-header">
             <div>
-              <strong>Trip Planning Progress</strong>
-              <span> 65% completed</span>
+              <span className="label">TRIP PLANNER</span>
+              <h1>Build Your Itinerary</h1>
+              <p>
+                Organize your activities and travel plans day by day.
+              </p>
             </div>
 
-            <span>
-              6 / 9 activities planned
-            </span>
-
+            <Link to="/my-trips" className="btn secondary">
+              ← My Trips
+            </Link>
           </div>
 
-          <div className="large-progress">
-            <div className="large-progress-fill"></div>
-          </div>
+          <div className="day-selector card">
 
-        </div>
-
-        {/* Builder Layout */}
-        <div className="builder-layout">
-
-          {/* Days Sidebar */}
-          <aside className="days-sidebar">
-
-            <div className="days-title">
-              <h2>Your Itinerary</h2>
-              <span>3 Days</span>
-            </div>
-
-            {days.map((day) => (
-              <button
-                key={day.day}
-                className={
-                  selectedDay === day.day
-                    ? "day-card selected-day"
-                    : "day-card"
-                }
-                onClick={() => setSelectedDay(day.day)}
-              >
-
-                <div className="day-number">
-                  {day.day}
-                </div>
-
-                <div className="day-information">
-                  <strong>Day {day.day}</strong>
-                  <span>{day.date}</span>
-                  <small>
-                    📍 {day.city}
-                  </small>
-                </div>
-
-                <div className="activity-count">
-                  {day.activities.length}
-                </div>
-
-              </button>
-            ))}
-
-            <button
-              className="add-day-button"
-              onClick={() => alert("New day feature coming next!")}
-            >
-              + Add Day
-            </button>
-
-          </aside>
-
-          {/* Main Day */}
-          <section className="day-content">
-
-            <div className="day-content-header">
-
-              <div>
-                <span>DAY {currentDay.day}</span>
-                <h2>{currentDay.city}</h2>
-                <p>{currentDay.date}</p>
+            <div className="day-selector-title">
+              <div className="day-icon">
+                📅
               </div>
 
-              <button
-                className="change-city-button"
-                onClick={() => alert("City search coming next!")}
-              >
-                📍 Change City
-              </button>
-
+              <div>
+                <span className="label">TRAVEL PLAN</span>
+                <h2>Select Travel Day</h2>
+                <p>Choose a day to manage your activities.</p>
+              </div>
             </div>
 
-            {/* Activities */}
-            <div className="activities-list">
-
-              {currentDay.activities.map((activity) => (
-
-                <div
-                  className="activity-item"
-                  key={activity.id}
+            <div className="days-list">
+              {[1, 2, 3, 4, 5].map((day) => (
+                <button
+                  key={day}
+                  className={
+                    selectedDay === day
+                      ? "day-button active"
+                      : "day-button"
+                  }
+                  onClick={() => setSelectedDay(day)}
                 >
+                  <small>DAY</small>
+                  <strong>{day}</strong>
+                </button>
+              ))}
+            </div>
 
-                  <div className="activity-time">
-                    {activity.time}
-                  </div>
+          </div>
 
-                  <div className="timeline-line">
-                    <div className="timeline-dot"></div>
-                  </div>
+          <div className="builder-layout">
 
-                  <div className="activity-card">
+            <section className="activity-form card">
 
-                    <div className="activity-icon">
-                      {activity.category === "Beach"
-                        ? "🏖️"
-                        : activity.category === "Food"
-                        ? "🍴"
-                        : activity.category === "Adventure"
-                        ? "🏄"
-                        : activity.category === "Shopping"
-                        ? "🛍️"
-                        : "📍"}
-                    </div>
-
-                    <div className="activity-information">
-
-                      <h3>{activity.title}</h3>
-
-                      <div className="activity-meta">
-
-                        <span>
-                          {activity.category}
-                        </span>
-
-                        <span>
-                          ⏱ {activity.duration}
-                        </span>
-
-                      </div>
-
-                    </div>
-
-                    <button
-                      className="delete-activity"
-                      onClick={() =>
-                        removeActivity(activity.id)
-                      }
-                    >
-                      🗑️
-                    </button>
-
-                  </div>
-
+              <div className="builder-section-header">
+                <div>
+                  <span className="label">ADD ACTIVITY</span>
+                  <h2>Plan Day {selectedDay}</h2>
                 </div>
 
-              ))}
-
-            </div>
-
-            {/* Add Activity */}
-            <div className="add-activity-card">
-
-              <h3>+ Add Activity</h3>
-
-              <p>
-                Add an activity to your Day {currentDay.day} itinerary.
-              </p>
+                <span className="section-plus">
+                  +
+                </span>
+              </div>
 
               <form onSubmit={addActivity}>
 
-                <div className="activity-form-row">
-
-                  <div>
-                    <label>Time</label>
-
-                    <input
-                      type="time"
-                      name="time"
-                      value={newActivity.time}
-                      onChange={handleActivityChange}
-                    />
-                  </div>
-
-                  <div className="activity-title-input">
-                    <label>Activity</label>
-
-                    <input
-                      type="text"
-                      name="title"
-                      placeholder="e.g. Visit Fort Aguada"
-                      value={newActivity.title}
-                      onChange={handleActivityChange}
-                    />
-                  </div>
-
+                <div className="form-group">
+                  <label>Activity Time</label>
+                  <input
+                    type="time"
+                    name="time"
+                    value={form.time}
+                    onChange={handleChange}
+                  />
                 </div>
 
-                <div className="activity-form-row">
+                <div className="form-group">
+                  <label>Activity Name</label>
+                  <input
+                    type="text"
+                    name="activity"
+                    placeholder="e.g. Visit City Palace"
+                    value={form.activity}
+                    onChange={handleChange}
+                  />
+                </div>
 
-                  <div>
-                    <label>Category</label>
+                <div className="form-group">
+                  <label>Location</label>
+                  <input
+                    type="text"
+                    name="location"
+                    placeholder="e.g. City Palace, Jaipur"
+                    value={form.location}
+                    onChange={handleChange}
+                  />
+                </div>
 
-                    <select
-                      name="category"
-                      value={newActivity.category}
-                      onChange={handleActivityChange}
-                    >
-                      <option> Sightseeing </option>
-                      <option> Beach </option>
-                      <option> Food </option>
-                      <option> Adventure </option>
-                      <option> Shopping </option>
-                      <option> Nature </option>
-                      <option> Culture </option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label>Duration</label>
-
-                    <input
-                      type="text"
-                      name="duration"
-                      placeholder="e.g. 2 hours"
-                      value={newActivity.duration}
-                      onChange={handleActivityChange}
-                    />
-                  </div>
-
+                <div className="form-group">
+                  <label>Duration</label>
+                  <select
+                    name="duration"
+                    value={form.duration}
+                    onChange={handleChange}
+                  >
+                    <option value="">
+                      Select duration
+                    </option>
+                    <option value="30 minutes">
+                      30 minutes
+                    </option>
+                    <option value="1 hour">
+                      1 hour
+                    </option>
+                    <option value="2 hours">
+                      2 hours
+                    </option>
+                    <option value="3 hours">
+                      3 hours
+                    </option>
+                    <option value="Half day">
+                      Half day
+                    </option>
+                    <option value="Full day">
+                      Full day
+                    </option>
+                  </select>
                 </div>
 
                 <button
                   type="submit"
-                  className="add-activity-button"
+                  className="btn add-activity-btn"
                 >
                   + Add Activity
                 </button>
 
               </form>
+            </section>
+
+            <section className="timeline-section card">
+
+              <div className="builder-section-header">
+
+                <div>
+                  <span className="label">
+                    YOUR ITINERARY
+                  </span>
+
+                  <h2>
+                    Day {selectedDay} Timeline
+                  </h2>
+                </div>
+
+                <span className="activity-total">
+                  {activities.length} Activities
+                </span>
+
+              </div>
+
+              <div className="timeline">
+
+                {activities.length === 0 ? (
+                  <div className="empty-timeline">
+                    <div className="empty-icon">
+                      🗓️
+                    </div>
+
+                    <h3>
+                      No activities added
+                    </h3>
+
+                    <p>
+                      Add your first activity from the form.
+                    </p>
+                  </div>
+                ) : (
+                  activities.map((item, index) => (
+                    <div
+                      className="timeline-item"
+                      key={item.id}
+                    >
+
+                      <div className="timeline-time">
+                        <strong>{item.time}</strong>
+                        <small>{item.duration}</small>
+                      </div>
+
+                      <div className="timeline-marker">
+                        <span></span>
+
+                        {index !== activities.length - 1 && (
+                          <div className="timeline-connector"></div>
+                        )}
+                      </div>
+
+                      <div className="activity-content">
+
+                        <div>
+                          <h3>
+                            {item.activity}
+                          </h3>
+
+                          <p>
+                            📍 {item.location}
+                          </p>
+                        </div>
+
+                        <button
+                          className="delete-activity"
+                          onClick={() =>
+                            removeActivity(item.id)
+                          }
+                        >
+                          ×
+                        </button>
+
+                      </div>
+
+                    </div>
+                  ))
+                )}
+
+              </div>
+            </section>
+
+          </div>
+
+          <div className="builder-footer card">
+
+            <div className="builder-summary">
+
+              <div className="summary-plane">
+                ✈️
+              </div>
+
+              <div>
+                <span>ITINERARY SUMMARY</span>
+                <strong>
+                  Day {selectedDay} · {activities.length} planned activities
+                </strong>
+              </div>
 
             </div>
 
-          </section>
+            <div className="builder-actions">
+
+              <button
+                className="btn secondary"
+                onClick={() => navigate("/dashboard")}
+              >
+                Save Later
+              </button>
+
+              <button
+                className="btn"
+                onClick={saveItinerary}
+              >
+                Save Itinerary ✓
+              </button>
+
+            </div>
+
+          </div>
 
         </div>
-
       </main>
-
     </div>
   );
 }
